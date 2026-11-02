@@ -1,0 +1,1 @@
+IBM Plex Sans and IBM Plex Sans Arabic, Copyright IBM Corp., licensed under the SIL Open Font License 1.1 (https://openfontlicense.org). Files from the Fontsource packages @fontsource/ibm-plex-sans and @fontsource/ibm-plex-sans-arabic (latin and arabic subsets, weights 400, 600, 700).

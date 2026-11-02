@@ -1,0 +1,822 @@
+{
+  "demo": true,
+  "note": "DEMO CONTENT. All text, names, prices, chat lines, plan features and credits below are demo or placeholder until the team confirms them (SRS ch. 12). Edit this file, then run: node tools/render-pages.mjs. Pages are generated: do not edit index.html or ar/index.html by hand.",
+  "photos": {
+    "gulf": {
+      "file": "gulf.jpg",
+      "w": 960,
+      "h": 640,
+      "unsplash": "https://unsplash.com/photos/1512453979798-5ea266f8880c"
+    },
+    "code": {
+      "file": "code.jpg",
+      "w": 960,
+      "h": 640,
+      "unsplash": "https://unsplash.com/photos/1555066931-4365d14bab8c"
+    },
+    "office": {
+      "file": "office.jpg",
+      "w": 1280,
+      "h": 854,
+      "unsplash": "https://unsplash.com/photos/1497366216548-37526070297c"
+    }
+  },
+  "en": {
+    "lang": "en",
+    "dir": "ltr",
+    "base": "",
+    "otherHref": "ar/",
+    "otherLang": "ar",
+    "otherName": "العربية",
+    "otherLabel": "Switch language to Arabic",
+    "title": "ReleaseHub: from story to pull request",
+    "ui": {
+      "skip": "Skip to content",
+      "menu": "Open menu",
+      "close": "Close menu",
+      "menuTitle": "Menu",
+      "navLabel": "Main",
+      "sheetLabel": "Mobile menu",
+      "demoTag": "Demo",
+      "phTag": "[PLACEHOLDER]",
+      "footerNav": "Footer",
+      "credits": "Photo credits"
+    },
+    "nav": {
+      "links": [
+        [
+          "how",
+          "How it works"
+        ],
+        [
+          "features",
+          "Features"
+        ],
+        [
+          "gulf",
+          "Gulf teams"
+        ],
+        [
+          "pricing",
+          "Pricing"
+        ],
+        [
+          "faq",
+          "FAQ"
+        ]
+      ],
+      "cta": "Book a demo"
+    },
+    "hero": {
+      "eyebrow": "AI delivery workspace",
+      "h1": "Plan, code, open the pull request.",
+      "sub": "ReleaseHub turns your stories into pull requests. AI agents do the work and a <bdi>Lead</bdi> runs delivery for you.",
+      "body": "Your team keeps the decisions. The agents take the routine.",
+      "cta": "Book a demo",
+      "ghost": "See how it works",
+      "mock": {
+        "bar": "Story to pull request",
+        "demo": "Demo",
+        "storyLabel": "Story",
+        "storyId": "RH-128",
+        "storyTitle": "Add dark mode to the dashboard",
+        "storyMeta": "Approved plan · 3 steps",
+        "steps": [
+          "Add a theme switch to settings",
+          "Write the acceptance tests first",
+          "Open one pull request"
+        ],
+        "prLabel": "Pull request",
+        "prTitle": "Add dark mode to the dashboard",
+        "prStatus": "Ready for review",
+        "prMeta": "4 files changed · 12 tests passing",
+        "diff": [
+          "+ const theme = readTheme();",
+          "+ root.dataset.theme = theme;",
+          "- root.className = 'light';"
+        ]
+      }
+    },
+    "trust": {
+      "caption": "Demo agencies and teams [PLACEHOLDER]: names are invented",
+      "names": [
+        "Najm Digital",
+        "Dune Labs",
+        "Al Bahar Studio",
+        "Falcon Works",
+        "Oasis Software"
+      ]
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "h": "From story to pull request in four steps",
+      "lead": "No new process to learn. Write the story as you do today.",
+      "steps": [
+        {
+          "icon": "file",
+          "t": "Story",
+          "d": "Write what you need in your tracker."
+        },
+        {
+          "icon": "list",
+          "t": "Plan",
+          "d": "An agent reads the code and writes a plan for you to approve."
+        },
+        {
+          "icon": "code",
+          "t": "Code",
+          "d": "The agent writes the change and its tests."
+        },
+        {
+          "icon": "pr",
+          "t": "Pull request",
+          "d": "The agent opens the pull request and your team reviews it."
+        }
+      ],
+      "cta": "Book a demo"
+    },
+    "features": {
+      "eyebrow": "Features",
+      "h": "Everything delivery needs, in one workspace",
+      "lead": "Agents do the work, your team stays in control.",
+      "items": [
+        {
+          "icon": "pr",
+          "t": "From stories to pull requests",
+          "d": "Write a story and get a pull request back, with the plan and the tests behind it."
+        },
+        {
+          "icon": "bot",
+          "t": "AI coding agents",
+          "d": "Agents write the tests first, then the code that passes them."
+        },
+        {
+          "icon": "chat",
+          "t": "A <bdi>Lead</bdi> that runs delivery",
+          "d": "Ask the <bdi>Lead</bdi> for progress, plans and next steps in a conversation."
+        },
+        {
+          "icon": "shield",
+          "t": "Review and merge control",
+          "d": "Nothing is coded before you approve the plan, and nothing is merged without your review."
+        },
+        {
+          "icon": "layers",
+          "t": "Parallel runs",
+          "d": "Several stories can run at the same time, each on its own branch."
+        },
+        {
+          "icon": "globe",
+          "t": "English and Arabic",
+          "d": "Stories, plans and pull requests in either language."
+        }
+      ],
+      "row": {
+        "eyebrow": "Tests first",
+        "h": "Every change arrives with its proof",
+        "d": "The agent writes the acceptance tests before the code, so the pull request shows what was asked and that it works.",
+        "bullets": [
+          "Acceptance criteria become tests",
+          "Plans are approved before coding",
+          "Each story runs on its own branch"
+        ],
+        "alt": "A laptop screen showing source code in a dark editor",
+        "credit": "code"
+      },
+      "cta": "See pricing"
+    },
+    "lead": {
+      "eyebrow": "The Lead",
+      "h": "Ask the <bdi>Lead</bdi>. It runs delivery.",
+      "lead": "Plan the week, check progress and unblock work in a conversation.",
+      "chatTitle": "Lead chat",
+      "chatLabel": "Sample conversation with the Lead",
+      "demo": "Sample conversation (demo)",
+      "chat": [
+        {
+          "who": "user",
+          "name": "You",
+          "text": "Can we add a dark mode to the dashboard?"
+        },
+        {
+          "who": "lead",
+          "name": "Lead",
+          "text": "Yes. Here is the plan:",
+          "list": [
+            "Add a theme switch to the settings page.",
+            "Write the acceptance tests first.",
+            "Open one pull request for you to review."
+          ]
+        },
+        {
+          "who": "user",
+          "name": "You",
+          "text": "Looks good. Go ahead."
+        },
+        {
+          "who": "lead",
+          "name": "Lead",
+          "text": "Started. The plan is ready for your approval in a few minutes."
+        }
+      ],
+      "pipeTitle": "Delivery pipeline",
+      "pipeLabel": "Sample pipeline of stories",
+      "pipe": [
+        {
+          "id": "RH-126",
+          "t": "Invoice export to CSV",
+          "s": "Merged",
+          "tone": "ok"
+        },
+        {
+          "id": "RH-127",
+          "t": "Arabic labels in reports",
+          "s": "In review",
+          "tone": "info"
+        },
+        {
+          "id": "RH-128",
+          "t": "Dark mode for the dashboard",
+          "s": "Coding",
+          "tone": "work"
+        },
+        {
+          "id": "RH-129",
+          "t": "Team roles page",
+          "s": "Plan ready",
+          "tone": "wait"
+        },
+        {
+          "id": "RH-130",
+          "t": "Billing page copy",
+          "s": "Plan ready",
+          "tone": "wait"
+        }
+      ],
+      "pipeDemo": "Sample pipeline (demo)"
+    },
+    "gulf": {
+      "eyebrow": "For the Gulf",
+      "h": "Built for teams and agencies in the Gulf",
+      "lead": "Work in Arabic or English, in the same workspace.",
+      "points": [
+        {
+          "t": "Arabic and English.",
+          "d": "Stories, plans and pull requests in either language."
+        },
+        {
+          "t": "Right to left.",
+          "d": "The interface mirrors fully in Arabic."
+        },
+        {
+          "t": "Made for agencies.",
+          "d": "Run many client projects with clear, per-user costs."
+        }
+      ],
+      "ph": "[PLACEHOLDER] Local hosting and data residency: claim to be confirmed.",
+      "alt": "A city skyline with tall towers and a highway interchange at sunset",
+      "credit": "gulf",
+      "cta": "Talk to us"
+    },
+    "pricing": {
+      "eyebrow": "Pricing",
+      "h": "One price per user",
+      "lead": "Pay for the people on your team, not for the number of projects.",
+      "note": "<strong>Example prices.</strong> [PLACEHOLDER] Final pricing to be confirmed.",
+      "unit": "per user / month",
+      "tag": "Placeholder",
+      "flag": "Example: most popular",
+      "plans": [
+        {
+          "name": "Starter",
+          "amount": 12,
+          "show": "12",
+          "desc": "For small teams starting out.",
+          "items": [
+            "Plans, code and pull requests from your stories",
+            "Arabic and English",
+            "[PLACEHOLDER] 1 active project"
+          ],
+          "cta": "Book a demo"
+        },
+        {
+          "name": "Team",
+          "amount": 24,
+          "show": "24",
+          "desc": "For teams that ship every week.",
+          "featured": true,
+          "items": [
+            "Plans, code and pull requests from your stories",
+            "The <bdi>Lead</bdi> chat",
+            "Arabic and English",
+            "[PLACEHOLDER] usage limits to be confirmed"
+          ],
+          "cta": "Book a demo"
+        },
+        {
+          "name": "Agency",
+          "amount": 40,
+          "show": "40",
+          "desc": "For agencies with many clients.",
+          "items": [
+            "Everything in Team",
+            "[PLACEHOLDER] many client projects",
+            "[PLACEHOLDER] usage limits to be confirmed"
+          ],
+          "cta": "Book a demo"
+        }
+      ]
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "h": "Questions, answered",
+      "lead": "The usual questions before a team starts.",
+      "items": [
+        {
+          "q": "Does the agent merge code on its own?",
+          "a": "No. It opens a pull request and your team reviews and merges it."
+        },
+        {
+          "q": "Can I see the plan before any code is written?",
+          "a": "Yes. Every run starts with a plan that you approve."
+        },
+        {
+          "q": "How is it priced?",
+          "a": "Per user, per month. See the <a class=\"link\" href=\"#pricing\">pricing section</a>."
+        },
+        {
+          "q": "Does it work in Arabic?",
+          "a": "Yes. The site and the workspace work in Arabic and English."
+        },
+        {
+          "q": "Where does my code go?",
+          "a": "Agents work in your own repositories. [PLACEHOLDER] Data handling details to be confirmed."
+        }
+      ]
+    },
+    "cta": {
+      "h": "Ship your next story as a pull request",
+      "d": "Book a demo and see it on your own backlog.",
+      "btn": "Book a demo",
+      "ghost": "Read the FAQ",
+      "note": "[PLACEHOLDER] The booking address is not set yet."
+    },
+    "footer": {
+      "blurb": "Plan, code, open the pull request.",
+      "cols": [
+        {
+          "h": "Product",
+          "links": [
+            [
+              "#how",
+              "How it works"
+            ],
+            [
+              "#features",
+              "Features"
+            ],
+            [
+              "#lead",
+              "The Lead"
+            ],
+            [
+              "#pricing",
+              "Pricing"
+            ]
+          ]
+        },
+        {
+          "h": "Company",
+          "links": [
+            [
+              "#gulf",
+              "Gulf teams"
+            ],
+            [
+              "#faq",
+              "FAQ"
+            ],
+            [
+              "#cta",
+              "Book a demo"
+            ]
+          ]
+        }
+      ],
+      "legalH": "Legal",
+      "legal": [
+        "Privacy [PLACEHOLDER]",
+        "Terms [PLACEHOLDER]"
+      ],
+      "legalNote": "The privacy and terms pages are not written yet.",
+      "copy": "© 2026 ReleaseHub. All rights reserved.",
+      "demoNote": "Demo content: copy, prices and names are examples.",
+      "photoBy": "on Unsplash",
+      "photoAuthor": "[PLACEHOLDER] photographer",
+      "creditNames": {
+        "gulf": "City skyline",
+        "code": "Code on a laptop",
+        "office": "Office corridor"
+      }
+    }
+  },
+  "ar": {
+    "lang": "ar",
+    "dir": "rtl",
+    "base": "../",
+    "otherHref": "../",
+    "otherLang": "en",
+    "otherName": "English",
+    "otherLabel": "التبديل إلى الإنجليزية",
+    "title": "ReleaseHub: من القصة إلى طلب الدمج",
+    "ui": {
+      "skip": "تخطَّ إلى المحتوى",
+      "menu": "فتح القائمة",
+      "close": "إغلاق القائمة",
+      "menuTitle": "القائمة",
+      "navLabel": "التنقل الرئيسي",
+      "sheetLabel": "قائمة الجوال",
+      "demoTag": "تجريبي",
+      "phTag": "[نص تجريبي]",
+      "footerNav": "التذييل",
+      "credits": "حقوق الصور"
+    },
+    "nav": {
+      "links": [
+        [
+          "how",
+          "كيف يعمل"
+        ],
+        [
+          "features",
+          "المزايا"
+        ],
+        [
+          "gulf",
+          "فرق الخليج"
+        ],
+        [
+          "pricing",
+          "الأسعار"
+        ],
+        [
+          "faq",
+          "الأسئلة الشائعة"
+        ]
+      ],
+      "cta": "احجز عرضًا تجريبيًا"
+    },
+    "hero": {
+      "eyebrow": "مساحة عمل للتسليم بالذكاء الاصطناعي",
+      "h1": "خطّط، اكتب الكود، وافتح طلب الدمج.",
+      "sub": "يحوّل <bdi>ReleaseHub</bdi> قصصك إلى طلبات دمج. وكلاء الذكاء الاصطناعي ينفّذون العمل، ويدير المسؤول (<bdi>Lead</bdi>) التسليم نيابةً عنك.",
+      "body": "يبقى القرار لفريقك، وتتولّى الوكلاء المهام الروتينية.",
+      "cta": "احجز عرضًا تجريبيًا",
+      "ghost": "شاهد كيف يعمل",
+      "mock": {
+        "bar": "من القصة إلى طلب الدمج",
+        "demo": "تجريبي",
+        "storyLabel": "قصة",
+        "storyId": "RH-128",
+        "storyTitle": "إضافة الوضع الداكن إلى لوحة التحكم",
+        "storyMeta": "خطة معتمدة · ٣ خطوات",
+        "steps": [
+          "إضافة مفتاح للمظهر في الإعدادات",
+          "كتابة اختبارات القبول أولًا",
+          "فتح طلب دمج واحد"
+        ],
+        "prLabel": "طلب دمج",
+        "prTitle": "إضافة الوضع الداكن إلى لوحة التحكم",
+        "prStatus": "جاهز للمراجعة",
+        "prMeta": "تغيير ٤ ملفات · ١٢ اختبارًا ناجحًا",
+        "diff": [
+          "+ const theme = readTheme();",
+          "+ root.dataset.theme = theme;",
+          "- root.className = 'light';"
+        ]
+      }
+    },
+    "trust": {
+      "caption": "فرق ووكالات تجريبية [نص تجريبي]: الأسماء مخترعة",
+      "names": [
+        "Najm Digital",
+        "Dune Labs",
+        "Al Bahar Studio",
+        "Falcon Works",
+        "Oasis Software"
+      ]
+    },
+    "how": {
+      "eyebrow": "كيف يعمل",
+      "h": "من القصة إلى طلب الدمج في أربع خطوات",
+      "lead": "لا حاجة لتعلّم عملية جديدة. اكتب القصة كما تفعل اليوم.",
+      "steps": [
+        {
+          "icon": "file",
+          "t": "القصة",
+          "d": "اكتب ما تحتاجه في أداة إدارة العمل."
+        },
+        {
+          "icon": "list",
+          "t": "الخطة",
+          "d": "يقرأ الوكيل الكود ويكتب خطة لتوافق عليها."
+        },
+        {
+          "icon": "code",
+          "t": "الكود",
+          "d": "يكتب الوكيل التعديل واختباراته."
+        },
+        {
+          "icon": "pr",
+          "t": "طلب الدمج",
+          "d": "يفتح الوكيل طلب الدمج ويراجعه فريقك."
+        }
+      ],
+      "cta": "احجز عرضًا تجريبيًا"
+    },
+    "features": {
+      "eyebrow": "المزايا",
+      "h": "كل ما يحتاجه التسليم في مساحة عمل واحدة",
+      "lead": "الوكلاء ينفّذون، وفريقك يتحكّم.",
+      "items": [
+        {
+          "icon": "pr",
+          "t": "من القصص إلى طلبات الدمج",
+          "d": "اكتب قصة واستلم طلب دمج، معه الخطة والاختبارات."
+        },
+        {
+          "icon": "bot",
+          "t": "وكلاء برمجة بالذكاء الاصطناعي",
+          "d": "يكتب الوكلاء الاختبارات أولًا، ثم الكود الذي يجتازها."
+        },
+        {
+          "icon": "chat",
+          "t": "<bdi>Lead</bdi> يدير التسليم",
+          "d": "اسأل الـ <bdi>Lead</bdi> عن التقدّم والخطط والخطوات التالية عبر محادثة."
+        },
+        {
+          "icon": "shield",
+          "t": "تحكّم في المراجعة والدمج",
+          "d": "لا يُكتب أي كود قبل موافقتك على الخطة، ولا يُدمج شيء دون مراجعتك."
+        },
+        {
+          "icon": "layers",
+          "t": "تشغيل متوازٍ",
+          "d": "يمكن تشغيل عدة قصص في الوقت نفسه، كل قصة على فرع مستقل."
+        },
+        {
+          "icon": "globe",
+          "t": "العربية والإنجليزية",
+          "d": "القصص والخطط وطلبات الدمج بأي من اللغتين."
+        }
+      ],
+      "row": {
+        "eyebrow": "الاختبارات أولًا",
+        "h": "كل تعديل يصلك ومعه الدليل",
+        "d": "يكتب الوكيل اختبارات القبول قبل الكود، فيُظهر طلب الدمج ما طُلب وأنه يعمل.",
+        "bullets": [
+          "معايير القبول تتحول إلى اختبارات",
+          "الخطط تُعتمد قبل كتابة الكود",
+          "كل قصة تعمل على فرع مستقل"
+        ],
+        "alt": "شاشة حاسوب محمول تعرض كودًا برمجيًا في محرر داكن",
+        "credit": "code"
+      },
+      "cta": "اطّلع على الأسعار"
+    },
+    "lead": {
+      "eyebrow": "المسؤول Lead",
+      "h": "اسأل الـ <bdi>Lead</bdi>. هو من يدير التسليم.",
+      "lead": "خطّط للأسبوع وتابع التقدّم وأزل العوائق عبر محادثة.",
+      "chatTitle": "محادثة الـ Lead",
+      "chatLabel": "محادثة نموذجية مع الـ Lead",
+      "demo": "محادثة نموذجية (تجريبية)",
+      "chat": [
+        {
+          "who": "user",
+          "name": "أنت",
+          "text": "هل يمكننا إضافة الوضع الداكن إلى لوحة التحكم؟"
+        },
+        {
+          "who": "lead",
+          "name": "Lead",
+          "text": "نعم. هذه هي الخطة:",
+          "list": [
+            "إضافة مفتاح للمظهر في صفحة الإعدادات.",
+            "كتابة اختبارات القبول أولًا.",
+            "فتح طلب دمج واحد لتراجعه."
+          ]
+        },
+        {
+          "who": "user",
+          "name": "أنت",
+          "text": "ممتاز. تفضّل بالبدء."
+        },
+        {
+          "who": "lead",
+          "name": "Lead",
+          "text": "بدأتُ. ستكون الخطة جاهزة لموافقتك خلال دقائق."
+        }
+      ],
+      "pipeTitle": "مسار التسليم",
+      "pipeLabel": "مسار نموذجي للقصص",
+      "pipe": [
+        {
+          "id": "RH-126",
+          "t": "تصدير الفواتير إلى CSV",
+          "s": "تم الدمج",
+          "tone": "ok"
+        },
+        {
+          "id": "RH-127",
+          "t": "تسميات عربية في التقارير",
+          "s": "قيد المراجعة",
+          "tone": "info"
+        },
+        {
+          "id": "RH-128",
+          "t": "الوضع الداكن للوحة التحكم",
+          "s": "قيد الكتابة",
+          "tone": "work"
+        },
+        {
+          "id": "RH-129",
+          "t": "صفحة أدوار الفريق",
+          "s": "الخطة جاهزة",
+          "tone": "wait"
+        },
+        {
+          "id": "RH-130",
+          "t": "نصوص صفحة الفوترة",
+          "s": "الخطة جاهزة",
+          "tone": "wait"
+        }
+      ],
+      "pipeDemo": "مسار نموذجي (تجريبي)"
+    },
+    "gulf": {
+      "eyebrow": "للخليج",
+      "h": "مصمَّم للفرق والوكالات في الخليج",
+      "lead": "اعمل بالعربية أو بالإنجليزية في مساحة العمل نفسها.",
+      "points": [
+        {
+          "t": "عربي وإنجليزي.",
+          "d": "القصص والخطط وطلبات الدمج بأي من اللغتين."
+        },
+        {
+          "t": "من اليمين إلى اليسار.",
+          "d": "تنعكس الواجهة بالكامل في العربية."
+        },
+        {
+          "t": "مناسب للوكالات.",
+          "d": "أدِر مشاريع عملاء متعددة بتكلفة واضحة لكل مستخدم."
+        }
+      ],
+      "ph": "[نص تجريبي] الاستضافة المحلية وإقامة البيانات: الادعاء قيد التأكيد.",
+      "alt": "أفق مدينة بأبراج شاهقة وتقاطع طرق سريعة عند الغروب",
+      "credit": "gulf",
+      "cta": "تحدّث إلينا"
+    },
+    "pricing": {
+      "eyebrow": "الأسعار",
+      "h": "سعر واحد لكل مستخدم",
+      "lead": "ادفع عن أعضاء فريقك، لا عن عدد المشاريع.",
+      "note": "<strong>أسعار تجريبية.</strong> [نص تجريبي] سيُؤكَّد السعر النهائي لاحقًا.",
+      "unit": "لكل مستخدم شهريًا",
+      "tag": "سعر تجريبي",
+      "flag": "مثال: الأكثر اختيارًا",
+      "plans": [
+        {
+          "name": "المبتدئ",
+          "amount": 12,
+          "show": "١٢",
+          "desc": "للفرق الصغيرة في بدايتها.",
+          "items": [
+            "الخطط والكود وطلبات الدمج من قصصك",
+            "العربية والإنجليزية",
+            "[نص تجريبي] مشروع نشط واحد"
+          ],
+          "cta": "احجز عرضًا تجريبيًا"
+        },
+        {
+          "name": "الفريق",
+          "amount": 24,
+          "show": "٢٤",
+          "desc": "للفرق التي تسلّم كل أسبوع.",
+          "featured": true,
+          "items": [
+            "الخطط والكود وطلبات الدمج من قصصك",
+            "محادثة الـ <bdi>Lead</bdi>",
+            "العربية والإنجليزية",
+            "[نص تجريبي] حدود الاستخدام قيد التأكيد"
+          ],
+          "cta": "احجز عرضًا تجريبيًا"
+        },
+        {
+          "name": "الوكالة",
+          "amount": 40,
+          "show": "٤٠",
+          "desc": "للوكالات التي تخدم عملاء كثيرين.",
+          "items": [
+            "كل ما في خطة الفريق",
+            "[نص تجريبي] مشاريع عملاء متعددة",
+            "[نص تجريبي] حدود الاستخدام قيد التأكيد"
+          ],
+          "cta": "احجز عرضًا تجريبيًا"
+        }
+      ]
+    },
+    "faq": {
+      "eyebrow": "الأسئلة الشائعة",
+      "h": "أسئلتك، وإجاباتها",
+      "lead": "الأسئلة المعتادة قبل أن يبدأ الفريق.",
+      "items": [
+        {
+          "q": "هل يدمج الوكيل الكود بنفسه؟",
+          "a": "لا. يفتح طلب دمج ويراجعه فريقك ويدمجه."
+        },
+        {
+          "q": "هل أستطيع الاطلاع على الخطة قبل كتابة أي كود؟",
+          "a": "نعم. كل تشغيل يبدأ بخطة توافق عليها."
+        },
+        {
+          "q": "كيف يُحتسب السعر؟",
+          "a": "لكل مستخدم شهريًا. راجع <a class=\"link\" href=\"#pricing\">قسم الأسعار</a>."
+        },
+        {
+          "q": "هل يعمل بالعربية؟",
+          "a": "نعم. الموقع ومساحة العمل يعملان بالعربية والإنجليزية."
+        },
+        {
+          "q": "أين يذهب الكود الخاص بي؟",
+          "a": "يعمل الوكلاء في مستودعاتك. [نص تجريبي] تفاصيل معالجة البيانات قيد التأكيد."
+        }
+      ]
+    },
+    "cta": {
+      "h": "سلّم قصتك القادمة في صورة طلب دمج",
+      "d": "احجز عرضًا تجريبيًا وشاهده على قائمة مهامك.",
+      "btn": "احجز عرضًا تجريبيًا",
+      "ghost": "اقرأ الأسئلة الشائعة",
+      "note": "[نص تجريبي] عنوان الحجز لم يُحدَّد بعد."
+    },
+    "footer": {
+      "blurb": "خطّط، اكتب الكود، وافتح طلب الدمج.",
+      "cols": [
+        {
+          "h": "المنتج",
+          "links": [
+            [
+              "#how",
+              "كيف يعمل"
+            ],
+            [
+              "#features",
+              "المزايا"
+            ],
+            [
+              "#lead",
+              "المسؤول Lead"
+            ],
+            [
+              "#pricing",
+              "الأسعار"
+            ]
+          ]
+        },
+        {
+          "h": "الشركة",
+          "links": [
+            [
+              "#gulf",
+              "فرق الخليج"
+            ],
+            [
+              "#faq",
+              "الأسئلة الشائعة"
+            ],
+            [
+              "#cta",
+              "احجز عرضًا تجريبيًا"
+            ]
+          ]
+        }
+      ],
+      "legalH": "قانوني",
+      "legal": [
+        "الخصوصية [نص تجريبي]",
+        "الشروط [نص تجريبي]"
+      ],
+      "legalNote": "صفحتا الخصوصية والشروط لم تُكتبا بعد.",
+      "copy": "<bdi>© 2026 ReleaseHub.</bdi> جميع الحقوق محفوظة.",
+      "demoNote": "محتوى تجريبي: النصوص والأسعار والأسماء أمثلة.",
+      "photoBy": "على Unsplash",
+      "photoAuthor": "[نص تجريبي] المصوّر",
+      "creditNames": {
+        "gulf": "أفق المدينة",
+        "code": "كود على حاسوب محمول",
+        "office": "ممر مكتب"
+      }
+    }
+  }
+}

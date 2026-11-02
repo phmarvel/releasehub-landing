@@ -203,7 +203,7 @@ The FAQ copy is also the source of the FAQPage structured data (chapter 9).
 6. All spacing, alignment and positioning use CSS logical properties (`margin-inline`, `padding-inline`, `inset-inline`, `text-align: start`, `border-inline`), so the layout mirrors with `dir`. There are no left/right declarations except where noted.
 7. Mirrored in RTL: the alternating feature rows, the header order, chevrons and arrows, the step order in how it works, chat bubble sides. Not mirrored: the logo, the product mockup frame, code, the Lead chat window frame, the currency code.
 8. Arabic is never letter-spaced, headings are never clipped by line height, and Arabic text is never set in italics.
-9. Fonts per direction 1: Inter for English; IBM Plex Sans Arabic for Arabic at the same weights, about 10% larger body size and a line height of 1.7.
+9. Fonts per direction 1 (updated in RHL-10): IBM Plex Sans for English; IBM Plex Sans Arabic for Arabic at the same weights, about 10% larger body size and a line height of 1.7.
 10. The language toggle changes the page and the focus is kept on the toggle after the switch.
 
 ## 6. Responsiveness
@@ -216,7 +216,7 @@ Phone-first CSS: base styles are for phones, wider layouts are added with `min-w
 | Phone | 360 to 767 px | one column, menu button, stacked steps, features stacked (text above image) |
 | Tablet | 768 to 1023 px | two-column steps, features start alternating |
 | Desktop | 1024 to 1439 px | 12-column grid, inline header links, alternating rows |
-| Wide | 1440 px and up | content centred, maximum content width 1120 px |
+| Wide | 1440 px and up | content centred, maximum content width 1280 px (RHL-10) |
 
 Rules:
 
@@ -246,7 +246,7 @@ The target is WCAG 2.1 AA (level AA), in both languages.
 - LCP 2.5 s or less, CLS 0.1 or less, INP 200 ms or less on a throttled mid-range phone.
 - No frameworks: plain HTML and CSS, and vanilla JavaScript only for the menu, the language redirect and the FAQ if `<details>` is not enough. JavaScript is 20 KB or less, CSS 30 KB or less (compressed). A static site generator at build time is allowed only if it outputs plain files.
 - Images: SVG where possible, otherwise AVIF or WebP with a fallback, at 2x of the displayed size at most. `width` and `height` are set, images below the first screen use `loading="lazy"`, and the hero image is not lazy and is preloaded if it is the LCP element. No single image over 150 KB.
-- Fonts: self-hosted variable fonts only (Inter, IBM Plex Sans Arabic), in WOFF2, with `font-display: swap`, subset to the needed scripts, preloaded for the above-the-fold weight. System font fallbacks (`system-ui`, `Segoe UI`, `Tahoma`) are in the stack so the page is readable before the fonts load. No Google Fonts request.
+- Fonts: self-hosted fonts only (IBM Plex Sans, IBM Plex Sans Arabic; static 400/600/700), in WOFF2, with `font-display: swap`, subset to the needed scripts, preloaded for the above-the-fold weight. System font fallbacks (`system-ui`, `Segoe UI`, `Tahoma`) are in the stack so the page is readable before the fonts load. No Google Fonts request.
 - No third-party requests: no analytics, no embeds, no CDN scripts.
 - Total transfer for the first load is 300 KB or less, plus fonts at 100 KB or less.
 - Static assets are named so they can be cached for a long time; GitHub Pages sets the cache headers.
@@ -290,7 +290,7 @@ Each criterion is numbered and checkable. "Check" says how: a file check or grep
 | AC-1 | The page is plain static HTML, CSS and JavaScript with no backend code and no API calls. | Search the repository for server code and `fetch(`/`XMLHttpRequest` to remote hosts: none. |
 | AC-2 | All ten sections of chapter 4 exist in this order: header, hero, how it works, features, Lead chat, Gulf audience, pricing, FAQ, final call to action, footer. | Read the page headings in order against chapter 4. |
 | AC-3 | Every section has the English and Arabic copy of chapter 4 (headline, subline, body, button labels), with no missing or English-only text on the Arabic page. | Compare both pages against the tables in chapter 4; run a script that checks each string exists. |
-| AC-4 | The look follows direction 1: palette #FFFFFF, #F5F7FA, #0F172A, #2563EB and #16A34A, Inter and IBM Plex Sans Arabic, 12-column grid, maximum content width 1120 px. | Inspect the CSS custom properties and the computed styles; compare with `docs/directions.md`. |
+| AC-4 | The look follows direction 1: palette #FFFFFF, #F5F7FA, #0F172A, #2563EB and #16A34A, Inter and IBM Plex Sans Arabic, 12-column grid, maximum content width 1280 px (RHL-10). | Inspect the CSS custom properties and the computed styles; compare with `docs/directions.md`. |
 | AC-5 | The pricing section is one card with a per-user price. Every amount and every unconfirmed claim is visibly marked as a placeholder, in both languages. | View the pricing section in both languages; grep the HTML for the placeholder marker next to each price. |
 
 ### 11.2 Language switch and RTL
