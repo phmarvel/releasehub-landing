@@ -28,3 +28,5 @@
 - Never `pkill -f` a pattern that appears in your own command; use `fuser -k 5173/tcp`.
 ## Review round 3 fix
 - The four PNGs were only tracked under docs/screenshots/. Added a `.gitignore` whose `!.releasehub-context/` overrides the local `.git/info/exclude` so `.releasehub-context/screenshots/*.png` are tracked too (preview/, graph.json, playtest.json stay ignored). The play-test deletes untracked files in that folder, so they must be committed.
+## Review round 4
+- Top-level PNGs in `.releasehub-context/screenshots/` still did not reach the branch (the runner seems to clear that folder's top level; page-check jpegs are its own). Added copies in `.releasehub-context/screenshots/final/` (subfolder) plus `docs/screenshots/`. If this fails again, the runner strips the folder: accept docs/screenshots as the evidence and say so in the PR.

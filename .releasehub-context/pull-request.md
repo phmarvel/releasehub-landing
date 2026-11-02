@@ -10,7 +10,7 @@ RHL-10: redo the look of the whole page at a professional standard (Modern web s
 ## How it was checked
 - CDP scripts (headless Chromium) at 320/390/1440 px, both languages: no horizontal scroll, all links/buttons/summaries at least 44x44, menu opens/closes by tap, Escape, X, backdrop and link with focus back on the button, 2px focus ring, fonts loaded, RTL mirrored, 9 `data-cta` links, images load with alt text, text contrast scan clean.
 - html-validate: no errors. axe-core 4.10 (injected via CDP; `@axe-core/cli` fails on a chromedriver mismatch): 0 violations. Lighthouse mobile and desktop: 100 / 100 / 96 / 91 (SEO limited by the meta description, RHL-9).
-- Screenshots: `.releasehub-context/screenshots/` and a tracked copy in `docs/screenshots/` (`en-390`, `en-1440`, `ar-390`, `ar-1440`, PNG).
+- Screenshots: `.releasehub-context/screenshots/` (also in `screenshots/final/`) and a tracked copy in `docs/screenshots/` (`en-390`, `en-1440`, `ar-390`, `ar-1440`, PNG).
 - Critique rounds (1-5: composition, type, spacing, imagery, colour, detail, consistency, phone, RTL, credibility), also in `docs/critique-rounds.md`:
   - Round 1: 4,4,3,4,4,3,4,3,4,4 (empty pipeline card, small tap targets, Arabic 320px overflow)
   - Round 2: 4,4,4,4,4,4,4,3,4,4 (fixed; phone menu still inside the header)
