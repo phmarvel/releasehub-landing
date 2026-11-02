@@ -1,0 +1,5 @@
+# Keep the run context and screenshots tracked (overrides .git/info/exclude).
+!.releasehub-context/
+.releasehub-context/preview/
+.releasehub-context/graph.json
+.releasehub-context/playtest.json

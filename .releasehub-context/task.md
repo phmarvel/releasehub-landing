@@ -26,3 +26,5 @@
 ## Review round 2 fix
 - Screenshots/PR were not on the branch: `.releasehub-context/` was in .git/info/exclude and the play-test wipes untracked files. Now the exclude line is removed, files are `git add -f`, and tracked copies live in `docs/screenshots/` and `docs/critique-rounds.md`.
 - Never `pkill -f` a pattern that appears in your own command; use `fuser -k 5173/tcp`.
+## Review round 3 fix
+- The four PNGs were only tracked under docs/screenshots/. Added a `.gitignore` whose `!.releasehub-context/` overrides the local `.git/info/exclude` so `.releasehub-context/screenshots/*.png` are tracked too (preview/, graph.json, playtest.json stay ignored). The play-test deletes untracked files in that folder, so they must be committed.
