@@ -88,7 +88,7 @@
   .mock { @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl; }
   .photo { @apply aspect-[3/2] w-full rounded-2xl border border-slate-200 object-cover shadow-xl; }
   .icon-box { @apply inline-flex size-12 items-center justify-center rounded-xl bg-accent-50 text-accent-700; }
-  .step-num { @apply text-2xl font-bold text-slate-400; }
+  .step-num { @apply text-2xl font-bold text-slate-600; }
 
   .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-sm font-semibold; }
   .badge-demo, .badge-ph { @apply bg-amber-100 text-amber-900; }

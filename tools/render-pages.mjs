@@ -333,7 +333,7 @@ function page(L) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${L.title}</title>
-  <link rel="preload" href="${b}assets/fonts/${L.lang === 'ar' ? 'ibm-plex-sans-arabic-arabic-400-normal.woff2' : 'ibm-plex-sans-latin-400-normal.woff2'}" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="${b}assets/css/styles.css">
   <script src="${b}assets/js/i18n.js" defer></script>
   <script src="${b}assets/js/main.js" defer></script>
