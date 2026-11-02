@@ -4,35 +4,35 @@ ReleaseHub is a delivery workspace. AI coding agents plan, code and open pull re
 
 Below are three directions that differ in layout, tone and colour. The recommendation at the end picks one to implement. The other stories of RHL-1 (RHL-4 to RHL-8) take their palette, fonts and section order from the direction chosen here.
 
-## Direction 1: Clear Release (to implement)
+## Direction 1: Departure Board (to implement; RHL-11 replaced "Clear Release")
 
 ### Concept
-A clean, light, product-led page. The product mockup does the selling: the visitor sees a story become a pull request within the first screen. Nothing decorative gets in the way of the product.
+The page reads like an airport or ferry departure board for software. A ReleaseHub run is a flight: story, plan, code and pull request are gates, and a run has a status (Planned, Coding, In review, Merged). The hero is a board of runs whose status plates flip once on load like a split-flap display; everything else stays quiet. The full reasoning and the review against generated defaults are in [design-plan.md](design-plan.md).
 
 ### Tone of voice
-Confident and plain. Short sentences, concrete verbs ("Plan, code, open the PR"), no hype and no jargon. The page says what ReleaseHub does and what it costs.
+Confident and plain. Short sentences, concrete verbs ("Plan, code, open the pull request"), no hype and no jargon. The page says what ReleaseHub does and what it costs.
 
 ### Colour palette
 | Role | Hex | Use |
 |---|---|---|
-| Background | #FFFFFF | Page background |
-| Surface | #F5F7FA | Alternate sections, cards |
-| Ink | #0F172A | Headings and body text |
-| Accent | #2563EB | Buttons, links, focus ring |
-| Success | #16A34A | Check marks and "PR opened" badges (icons only, never text on white) |
+| Enamel | #12263F | Board panel, dark bands, plan stubs (deeper #0B1829, raised #24476F, tint #EEF3F8, text on enamel #B9C8DA) |
+| Lamp amber | #FFB43A | Lit characters, the one primary button, the lamp mark (never text on white; dark amber #7A4400 for placeholder tags) |
+| Boarding-pass paper | #F5F7F9 (cool, not cream), with #FFFFFF | Page ground and ticket cards |
+| Chalk ink | #1C2B3D (muted #4A5B70, line #CFD8E3) | Text |
+| Go green / hold red | #1F7A4F (lit #5FD08F) / #B83A2A (lit #FF9D8F) | Status only (Merged, removed diff lines); always with a text label |
 
 ### Typography
-IBM Plex Sans for English (headings 600 to 700, body 400, RHL-10 decision). IBM Plex Sans Arabic for Arabic, at the same weights and about 10% larger body size and 1.7 line height. Both are self-hosted variable fonts, so the static site needs no third-party request.
+Barlow Semi Condensed (400, 600, 700) for headings and text, Barlow Condensed (600, 700) for the board plates, both self-hosted, Latin subset. IBM Plex Sans Arabic for Arabic (also for the Arabic plates, as one word per plate because Arabic letters join), at the same weights, about 10% larger body size and 1.7 line height. No letter-spacing and no uppercase on Arabic, and no ALL-CAPS tracked labels in English.
 
 ### Layout
-Centred hero with a large product mockup under the headline. A container of 1280 px (max-w-7xl) with 16 to 32 px gutters, and section padding of 64 px on phones and 96 px on desktop (RHL-10). Features are alternating text-and-image rows. The Lead chat is shown as a framed chat window. Pricing is a single card because the price is per user. Single sticky header with the language switch.
+Split hero: headline, one line and one primary action beside the run board (5 rows: gate, run, status; the status plates flip once on load and stay static with prefers-reduced-motion). A container of 1280 px (max-w-7xl) with 16 to 32 px gutters, and section padding of 64 px on phones and 96 px on desktop (RHL-10). Features are an alternating split (text beside the drawn pull request) and a quiet list. The Lead chat is a dark band with the drawn chat scene. The Gulf section pairs board-like rows with a drawn bilingual run board. Pricing is a single card because the price is per user. Single sticky header with the language switch.
 
 ### Kit (RHL-10)
-Tailwind v4 compiled with the standalone CLI (`assets/css/input.css` to `assets/css/styles.css`), shadcn/Tailwind UI conventions: one radius family (lg controls, xl cards, 2xl photos and product visuals), borders before shadows, Lucide icons (one set, inline SVG), 2 px focus ring with offset, 44 px targets. The colour tokens are exactly the palette above plus tints. Phone menu is a sheet from the inline end. Layouts: split hero with a product visual, trust strip, 4-step cards, 6-card feature grid plus a photo row, chat and pipeline panels, Gulf photo split, three pricing cards with a highlighted plan, FAQ accordion, dark CTA band with a photo, four-column footer with photo credits. Copy lives in `content/demo.json` and the pages are generated from it.
+Tailwind v4 compiled with the standalone CLI (`assets/css/input.css` to `assets/css/styles.css`), shadcn/Tailwind UI conventions: one radius logic by hierarchy (md controls, xl frames, tickets and scenes, sm plates), one shadow (the hero board and the sheet), borders before shadows, Lucide icons (one set, inline SVG), 2 px focus ring with offset, 44 px targets. The colour tokens are exactly the palette above plus tints. Phone menu is a sheet from the inline end. Layouts: split hero with a product visual, trust strip, 4-step cards, 6-card feature grid plus a photo row, chat and pipeline panels, Gulf photo split, three pricing cards with a highlighted plan, FAQ accordion, dark CTA band with a photo, four-column footer with photo credits. Copy lives in `content/demo.json` and the pages are generated from it.
 
 ### Sections
 1. Header and language switch: brand, anchor links, English/Arabic toggle, main call to action.
-2. Hero: one-line promise, sub-line, call to action, product mockup.
+2. Hero: one-line promise, sub-line, call to action, the flipping run board.
 3. How it works: story, plan, code, pull request, in four steps.
 4. Features: what the agents and the workspace do, as alternating rows.
 5. Lead chat showcase: a sample conversation where the Lead runs delivery.
@@ -121,12 +121,12 @@ Illustrations are mirrored on purpose where direction matters: the journey from 
 
 ## Comparison
 
-| | Direction 1: Clear Release | Direction 2: Pull Request | Direction 3: The Delivery Story |
+| | Direction 1: Departure Board | Direction 2: Pull Request | Direction 3: The Delivery Story |
 |---|---|---|---|
-| Look | Light, neutral, one blue accent | Dark, terminal, status colours | Warm paper, earthy, illustrated |
-| Layout | Centred hero, 12-column grid, alternating rows, single price card | Split-pane hero, left-aligned timeline, diff lists | Long scroll of full-bleed illustrated chapters |
+| Look | Enamel-blue board, lit amber, paper white | Dark, terminal, status colours | Warm paper, earthy, illustrated |
+| Layout | Split hero with the run board, alternating splits, ticket plan cards | Split-pane hero, left-aligned timeline, diff lists | Long scroll of full-bleed illustrated chapters |
 | Tone | Confident, plain | Terse, technical | Warm, story-driven |
-| Type | Sans serif (Inter) | Monospace plus sans | Serif plus humanist sans |
+| Type | Barlow Semi Condensed and Barlow Condensed | Monospace plus sans | Serif plus humanist sans |
 | Arabic/RTL effort | Lowest: mirrors with logical properties | Medium: LTR islands inside RTL | Highest: mirrored art and Arabic variants |
 
 ## Recommendation

@@ -1,5 +1,17 @@
 [
-  {"title": "Add photographer names to the photo credits", "why": "The three Unsplash photos are credited in the footer, but the photographers' names could not be read automatically, so each credit shows \"[PLACEHOLDER] photographer\".", "steps": "1. Open each link in the footer credits (or the `unsplash` URLs in `content/demo.json`).\n2. Read the photographer's name and check the photo is still free to use.\n3. Add the names to `footer.photoAuthor` in `content/demo.json`, then run `node tools/render-pages.mjs`."},
-  {"title": "Confirm the real call-to-action address, prices and claims", "why": "`CTA_HREF` in `assets/js/main.js`, the prices, plan limits, the data-residency claim and the privacy and terms pages are placeholders.", "steps": "1. Set `CTA_HREF` in `assets/js/main.js`.\n2. Update `pricing` in `content/demo.json` and remove confirmed [PLACEHOLDER] / [نص تجريبي] marks.\n3. Add the privacy and terms pages and link them in the footer."},
-  {"title": "Native Arabic review", "why": "All Arabic copy in `content/demo.json` is unreviewed.", "steps": "1. Ask a native Arabic speaker to read `ar/index.html`.\n2. Apply corrections in the `ar` object of `content/demo.json`, then run `node tools/render-pages.mjs`."}
+  {
+    "title": "Native Arabic review of the new copy",
+    "why": "The run board (statuses, gate note), the three drawn scenes (Lead chat, pull request, bilingual board) and the Lead example questions were written for RHL-11 and have not been read by a native Arabic speaker.",
+    "steps": "1. Open `/ar/` and read the run board in the hero, the Lead section, the pull request scene in the features section and the board in the Gulf section.\n2. Check the status words (مخطَّط، قيد الكتابة، قيد المراجعة، تم الدمج), the gate note and the scene texts in `content/demo.json` under `ar.hero.board`, `ar.scenes` and `ar.lead.asks`.\n3. Send corrections as text, or edit `content/demo.json` and run `node tools/render-pages.mjs`."
+  },
+  {
+    "title": "Set the real call-to-action address",
+    "why": "Every `data-cta` button links to `#` because the booking address (mailto: or booking page) is not decided. The page marks this as a placeholder.",
+    "steps": "1. Decide the address (a `mailto:` link or a booking page URL).\n2. Put it in `CTA_HREF` in `assets/js/main.js`.\n3. Remove the placeholder note `cta.note` in both languages in `content/demo.json` and run `node tools/render-pages.mjs`."
+  },
+  {
+    "title": "Confirm the real prices and plan limits",
+    "why": "The three plan prices (12, 24, 40 USD per user per month), the usage limits and the Gulf data-residency claim are examples marked [PLACEHOLDER] / [نص تجريبي].",
+    "steps": "1. Decide the final prices, limits and whether the data-residency claim is true.\n2. Edit `pricing.plans`, `gulf.ph` and `faq.items` in both languages in `content/demo.json`.\n3. Remove the placeholder tags and run `node tools/render-pages.mjs`, then rebuild `assets/css/styles.css`."
+  }
 ]

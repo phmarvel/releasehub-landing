@@ -2,7 +2,7 @@
 
 Work item RHL-3, part of RHL-1. Version 1.0.
 
-The page is built in the visual and editorial direction **Direction 1: Clear Release** from [directions.md](directions.md). Where this document says "per direction 1", `directions.md` is the source and wins on colour, type and layout. This document is the source for copy, behaviour and acceptance criteria. Stories RHL-4 to RHL-9 build and verify the page from it.
+The page is built in the visual and editorial direction **Direction 1: Departure Board** (RHL-11) from [directions.md](directions.md). Where this document says "per direction 1", `directions.md` is the source and wins on colour, type and layout. This document is the source for copy, behaviour and acceptance criteria. Stories RHL-4 to RHL-9 build and verify the page from it.
 
 ## 1. Goals and success measures
 
@@ -77,9 +77,10 @@ The header is a single sticky bar. On phones the links collapse into a menu butt
 | Body | Your team keeps the decisions. The agents take the routine. | يبقى القرار لفريقك، وتتولّى الوكلاء المهام الروتينية. |
 | Primary button | Book a demo | احجز عرضًا تجريبيًا |
 | Secondary button | See how it works | شاهد كيف يعمل |
-| Mockup alt text | A story in ReleaseHub with its pull request opened | قصة في ReleaseHub وقد فُتح لها طلب دمج |
+| Run board label | Run board | لوحة التشغيل |
+| Status plates | Planned, Coding, In review, Merged | مخطَّط، قيد الكتابة، قيد المراجعة، تم الدمج |
 
-The product mockup sits under the headline, centred. It is an optimised image or inline SVG with width and height set, and it is not mirrored.
+The hero is split: text and buttons beside the run board (RHL-11). The board lists five sample runs (gate, run name, id and time, status). Gates map to the four steps (1 story, 2 plan, 3 code, 4 pull request). Each status plate holds its final text in the HTML and flips once on page load like a split-flap display (Latin: one plate per letter; Arabic: one plate per word, because Arabic letters join). Under `prefers-reduced-motion: reduce` and without JavaScript nothing flips. The rows mirror in Arabic through `dir`; the sample runs are marked as demo.
 
 ### 4.3 How it works
 
@@ -95,7 +96,7 @@ The product mockup sits under the headline, centred. It is an optimised image or
 
 ### 4.4 Features
 
-Alternating text-and-image rows. In Arabic the rows swap sides through logical properties.
+An alternating split (text beside the drawn pull request scene: diff and checks) followed by a quiet list of six features without card chrome. In Arabic the split swaps sides through logical properties.
 
 | Element | English | العربية |
 |---|---|---|
@@ -113,7 +114,7 @@ Alternating text-and-image rows. In Arabic the rows swap sides through logical p
 
 ### 4.5 Lead chat showcase
 
-A framed chat window with a static sample. Chat bubbles follow the page direction; the window frame and any code inside it stay LTR.
+A dark band with the drawn Lead chat scene (an inline SVG with a title as alt text, replacing the HTML chat window of RHL-6) and three example questions. Chat bubbles follow the page direction; the window frame and any code inside it stay LTR.
 
 | Element | English | العربية |
 |---|---|---|
@@ -201,9 +202,9 @@ The FAQ copy is also the source of the FAQPage structured data (chapter 9).
 4. `<html>` carries `lang="en" dir="ltr"` or `lang="ar" dir="rtl"`. Inline English or Arabic fragments in the other language carry their own `lang`, and product and code names are wrapped with `unicode-bidi: isolate`.
 5. Numbers: Arabic pages may use Eastern Arabic digits for ordinary numbers (via `Intl.NumberFormat` with `numberingSystem: 'arab'` or written out in the HTML). Currency codes, version numbers and code stay Latin. One style is used on a page.
 6. All spacing, alignment and positioning use CSS logical properties (`margin-inline`, `padding-inline`, `inset-inline`, `text-align: start`, `border-inline`), so the layout mirrors with `dir`. There are no left/right declarations except where noted.
-7. Mirrored in RTL: the alternating feature rows, the header order, chevrons and arrows, the step order in how it works, chat bubble sides. Not mirrored: the logo, the product mockup frame, code, the Lead chat window frame, the currency code.
+7. Mirrored in RTL: the alternating feature rows, the header order, chevrons and arrows, the step order in how it works, chat bubble sides. Not mirrored: the logo, the scene frames, code, the Lead chat window frame, the currency code.
 8. Arabic is never letter-spaced, headings are never clipped by line height, and Arabic text is never set in italics.
-9. Fonts per direction 1 (updated in RHL-10): IBM Plex Sans for English; IBM Plex Sans Arabic for Arabic at the same weights, about 10% larger body size and a line height of 1.7.
+9. Fonts per direction 1 (updated in RHL-11): Barlow Semi Condensed (text) and Barlow Condensed (board plates) for English; IBM Plex Sans Arabic for Arabic at the same weights, about 10% larger body size and a line height of 1.7.
 10. The language toggle changes the page and the focus is kept on the toggle after the switch.
 
 ## 6. Responsiveness
@@ -223,14 +224,14 @@ Rules:
 - Viewport meta: `width=device-width, initial-scale=1`. Zoom is never disabled.
 - Touch targets are at least 44 by 44 CSS px.
 - Body text is at least 16 px and the page works at 200% zoom and 400% zoom without losing content (reflow).
-- Images and the mockup scale with the container, with `width` and `height` set to avoid layout shift.
+- Images and the drawn scenes scale with the container, with `width` and `height` set to avoid layout shift.
 - Tested in both languages on a 360 px phone and a 1440 px desktop, and in portrait and landscape on a phone.
 
 ## 7. Accessibility
 
 The target is WCAG 2.1 AA (level AA), in both languages.
 
-- **Contrast:** text 4.5:1 or more (3:1 for large text), UI components and focus indicators 3:1 or more. Palette per direction 1: ink #0F172A on #FFFFFF and on #F5F7FA; accent #2563EB for buttons and links (white text on the accent button). The success green #16A34A is used for icons only, never for text on white.
+- **Contrast:** text 4.5:1 or more (3:1 for large text), UI components and focus indicators 3:1 or more. Palette per direction 1 (RHL-11): chalk ink #1C2B3D on #FFFFFF and on paper #F5F7F9; lamp amber #FFB43A as the button fill with enamel #12263F text (never amber text on white); light text on enamel. Status green #1F7A4F and red #B83A2A always come with a text label.
 - **Keyboard:** every control (menu, language switch, buttons, FAQ items) works with the keyboard in a logical order that follows the reading order in both directions. No keyboard traps. A skip link ("Skip to content" / "تخطَّ إلى المحتوى") is the first focusable element.
 - **Focus:** a visible focus ring on every focusable element, 2 px accent outline with a 2 px offset, never removed. Focus is not hidden by the sticky header (`scroll-padding-top`).
 - **Reduced motion:** with `prefers-reduced-motion: reduce`, animations and smooth scrolling are off. The page has no autoplaying motion that lasts longer than 5 seconds.
@@ -246,7 +247,7 @@ The target is WCAG 2.1 AA (level AA), in both languages.
 - LCP 2.5 s or less, CLS 0.1 or less, INP 200 ms or less on a throttled mid-range phone.
 - No frameworks: plain HTML and CSS, and vanilla JavaScript only for the menu, the language redirect and the FAQ if `<details>` is not enough. JavaScript is 20 KB or less, CSS 30 KB or less (compressed). A static site generator at build time is allowed only if it outputs plain files.
 - Images: SVG where possible, otherwise AVIF or WebP with a fallback, at 2x of the displayed size at most. `width` and `height` are set, images below the first screen use `loading="lazy"`, and the hero image is not lazy and is preloaded if it is the LCP element. No single image over 150 KB.
-- Fonts: self-hosted fonts only (IBM Plex Sans, IBM Plex Sans Arabic; static 400/600/700), in WOFF2, with `font-display: swap`, subset to the needed scripts, preloaded for the above-the-fold weight. System font fallbacks (`system-ui`, `Segoe UI`, `Tahoma`) are in the stack so the page is readable before the fonts load. No Google Fonts request.
+- Fonts: self-hosted fonts only (Barlow Semi Condensed, Barlow Condensed, IBM Plex Sans Arabic; static 400/600/700), in WOFF2, with `font-display: swap`, subset to the needed scripts, preloaded for the above-the-fold weight. System font fallbacks (`system-ui`, `Segoe UI`, `Tahoma`) are in the stack so the page is readable before the fonts load. No Google Fonts request.
 - No third-party requests: no analytics, no embeds, no CDN scripts.
 - Total transfer for the first load is 300 KB or less, plus fonts at 100 KB or less.
 - Static assets are named so they can be cached for a long time; GitHub Pages sets the cache headers.
@@ -267,7 +268,7 @@ Requirements:
 - **Structured data (JSON-LD):** `Organization`, `SoftwareApplication` (with an `offers` entry marked as placeholder until real pricing exists, or left out until then) and `FAQPage` from section 4.8, matching the visible text.
 - **sitemap.xml:** lists `/` and `/ar/` with `xhtml:link` alternates.
 - **robots.txt:** allows all and points to the sitemap.
-- **Other:** one `h1` per page, descriptive link text, a favicon and a `theme-color` (#2563EB), a `404.html`.
+- **Other:** one `h1` per page, descriptive link text, a favicon and a `theme-color` (#12263F), a `404.html`.
 - URLs in these files use the production base URL, which is configured in one place and is a placeholder until the domain is decided (chapter 11).
 
 ## 10. Hosting on GitHub Pages
@@ -290,7 +291,7 @@ Each criterion is numbered and checkable. "Check" says how: a file check or grep
 | AC-1 | The page is plain static HTML, CSS and JavaScript with no backend code and no API calls. | Search the repository for server code and `fetch(`/`XMLHttpRequest` to remote hosts: none. |
 | AC-2 | All ten sections of chapter 4 exist in this order: header, hero, how it works, features, Lead chat, Gulf audience, pricing, FAQ, final call to action, footer. | Read the page headings in order against chapter 4. |
 | AC-3 | Every section has the English and Arabic copy of chapter 4 (headline, subline, body, button labels), with no missing or English-only text on the Arabic page. | Compare both pages against the tables in chapter 4; run a script that checks each string exists. |
-| AC-4 | The look follows direction 1: palette #FFFFFF, #F5F7FA, #0F172A, #2563EB and #16A34A, Inter and IBM Plex Sans Arabic, 12-column grid, maximum content width 1280 px (RHL-10). | Inspect the CSS custom properties and the computed styles; compare with `docs/directions.md`. |
+| AC-4 | The look follows direction 1: palette enamel #12263F, lamp amber #FFB43A, paper #F5F7F9, chalk ink #1C2B3D and status green/red, Barlow Semi Condensed, Barlow Condensed and IBM Plex Sans Arabic, maximum content width 1280 px (RHL-11). | Inspect the CSS custom properties and the computed styles; compare with `docs/directions.md`. |
 | AC-5 | The pricing section is one card with a per-user price. Every amount and every unconfirmed claim is visibly marked as a placeholder, in both languages. | View the pricing section in both languages; grep the HTML for the placeholder marker next to each price. |
 
 ### 11.2 Language switch and RTL
