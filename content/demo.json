@@ -1,26 +1,6 @@
 {
   "demo": true,
-  "note": "DEMO CONTENT. All text, names, prices, chat lines, plan features and credits below are demo or placeholder until the team confirms them (SRS ch. 12). Edit this file, then run: node tools/render-pages.mjs. Pages are generated: do not edit index.html or ar/index.html by hand.",
-  "photos": {
-    "gulf": {
-      "file": "gulf.jpg",
-      "w": 960,
-      "h": 640,
-      "unsplash": "https://unsplash.com/photos/1512453979798-5ea266f8880c"
-    },
-    "code": {
-      "file": "code.jpg",
-      "w": 960,
-      "h": 640,
-      "unsplash": "https://unsplash.com/photos/1555066931-4365d14bab8c"
-    },
-    "office": {
-      "file": "office.jpg",
-      "w": 1280,
-      "h": 854,
-      "unsplash": "https://unsplash.com/photos/1497366216548-37526070297c"
-    }
-  },
+  "note": "DEMO CONTENT. All text, names, prices, plan features and board rows below are demo or placeholder until the team confirms them (SRS ch. 12). Edit this file, then run: node tools/render-pages.mjs. Pages are generated: do not edit index.html or ar/index.html by hand.",
   "en": {
     "lang": "en",
     "dir": "ltr",
@@ -40,7 +20,7 @@
       "demoTag": "Demo",
       "phTag": "[PLACEHOLDER]",
       "footerNav": "Footer",
-      "credits": "Photo credits"
+      "board": "Run board"
     },
     "nav": {
       "links": [
@@ -68,33 +48,63 @@
       "cta": "Book a demo"
     },
     "hero": {
-      "eyebrow": "AI delivery workspace",
       "h1": "Plan, code, open the pull request.",
       "sub": "ReleaseHub turns your stories into pull requests. AI agents do the work and a <bdi>Lead</bdi> runs delivery for you.",
       "body": "Your team keeps the decisions. The agents take the routine.",
       "cta": "Book a demo",
       "ghost": "See how it works",
-      "mock": {
-        "bar": "Story to pull request",
+      "board": {
+        "title": "Run board",
         "demo": "Demo",
-        "storyLabel": "Story",
-        "storyId": "RH-128",
-        "storyTitle": "Add dark mode to the dashboard",
-        "storyMeta": "Approved plan · 3 steps",
-        "steps": [
-          "Add a theme switch to settings",
-          "Write the acceptance tests first",
-          "Open one pull request"
+        "cols": {
+          "gate": "Gate",
+          "run": "Run",
+          "status": "Status"
+        },
+        "st": {
+          "planned": "Planned",
+          "coding": "Coding",
+          "review": "In review",
+          "merged": "Merged"
+        },
+        "rows": [
+          {
+            "id": "RH-126",
+            "t": "Export invoices to CSV",
+            "s": "merged",
+            "gate": 4,
+            "time": "09:40"
+          },
+          {
+            "id": "RH-127",
+            "t": "Arabic labels in reports",
+            "s": "review",
+            "gate": 4,
+            "time": "10:15"
+          },
+          {
+            "id": "RH-128",
+            "t": "Dark mode for the dashboard",
+            "s": "coding",
+            "gate": 3,
+            "time": "10:32"
+          },
+          {
+            "id": "RH-129",
+            "t": "Team roles page",
+            "s": "planned",
+            "gate": 2,
+            "time": "10:50"
+          },
+          {
+            "id": "RH-130",
+            "t": "Billing page copy",
+            "s": "planned",
+            "gate": 2,
+            "time": "11:05"
+          }
         ],
-        "prLabel": "Pull request",
-        "prTitle": "Add dark mode to the dashboard",
-        "prStatus": "Ready for review",
-        "prMeta": "4 files changed · 12 tests passing",
-        "diff": [
-          "+ const theme = readTheme();",
-          "+ root.dataset.theme = theme;",
-          "- root.className = 'light';"
-        ]
+        "note": "Sample runs. The gate is the step: 1 story, 2 plan, 3 code, 4 pull request."
       }
     },
     "trust": {
@@ -108,7 +118,6 @@
       ]
     },
     "how": {
-      "eyebrow": "How it works",
       "h": "From story to pull request in four steps",
       "lead": "No new process to learn. Write the story as you do today.",
       "steps": [
@@ -136,7 +145,6 @@
       "cta": "Book a demo"
     },
     "features": {
-      "eyebrow": "Features",
       "h": "Everything delivery needs, in one workspace",
       "lead": "Agents do the work, your team stays in control.",
       "items": [
@@ -172,91 +180,29 @@
         }
       ],
       "row": {
-        "eyebrow": "Tests first",
         "h": "Every change arrives with its proof",
         "d": "The agent writes the acceptance tests before the code, so the pull request shows what was asked and that it works.",
         "bullets": [
           "Acceptance criteria become tests",
           "Plans are approved before coding",
           "Each story runs on its own branch"
-        ],
-        "alt": "A laptop screen showing source code in a dark editor",
-        "credit": "code"
+        ]
       },
-      "cta": "See pricing"
+      "cta": "See pricing",
+      "sceneNote": "Sample pull request (demo)"
     },
     "lead": {
-      "eyebrow": "The Lead",
       "h": "Ask the <bdi>Lead</bdi>. It runs delivery.",
       "lead": "Plan the week, check progress and unblock work in a conversation.",
-      "chatTitle": "Lead chat",
-      "chatLabel": "Sample conversation with the Lead",
-      "demo": "Sample conversation (demo)",
-      "chat": [
-        {
-          "who": "user",
-          "name": "You",
-          "text": "Can we add a dark mode to the dashboard?"
-        },
-        {
-          "who": "lead",
-          "name": "Lead",
-          "text": "Yes. Here is the plan:",
-          "list": [
-            "Add a theme switch to the settings page.",
-            "Write the acceptance tests first.",
-            "Open one pull request for you to review."
-          ]
-        },
-        {
-          "who": "user",
-          "name": "You",
-          "text": "Looks good. Go ahead."
-        },
-        {
-          "who": "lead",
-          "name": "Lead",
-          "text": "Started. The plan is ready for your approval in a few minutes."
-        }
+      "asks": [
+        "What is in review today?",
+        "Plan the dark mode story.",
+        "Which runs are blocked?"
       ],
-      "pipeTitle": "Delivery pipeline",
-      "pipeLabel": "Sample pipeline of stories",
-      "pipe": [
-        {
-          "id": "RH-126",
-          "t": "Invoice export to CSV",
-          "s": "Merged",
-          "tone": "ok"
-        },
-        {
-          "id": "RH-127",
-          "t": "Arabic labels in reports",
-          "s": "In review",
-          "tone": "info"
-        },
-        {
-          "id": "RH-128",
-          "t": "Dark mode for the dashboard",
-          "s": "Coding",
-          "tone": "work"
-        },
-        {
-          "id": "RH-129",
-          "t": "Team roles page",
-          "s": "Plan ready",
-          "tone": "wait"
-        },
-        {
-          "id": "RH-130",
-          "t": "Billing page copy",
-          "s": "Plan ready",
-          "tone": "wait"
-        }
-      ],
-      "pipeDemo": "Sample pipeline (demo)"
+      "asksH": "Ask things like",
+      "sceneNote": "Sample conversation (demo)"
     },
     "gulf": {
-      "eyebrow": "For the Gulf",
       "h": "Built for teams and agencies in the Gulf",
       "lead": "Work in Arabic or English, in the same workspace.",
       "points": [
@@ -274,12 +220,10 @@
         }
       ],
       "ph": "[PLACEHOLDER] Local hosting and data residency: claim to be confirmed.",
-      "alt": "A city skyline with tall towers and a highway interchange at sunset",
-      "credit": "gulf",
-      "cta": "Talk to us"
+      "cta": "Talk to us",
+      "sceneNote": "Sample board (demo)"
     },
     "pricing": {
-      "eyebrow": "Pricing",
       "h": "One price per user",
       "lead": "Pay for the people on your team, not for the number of projects.",
       "note": "<strong>Example prices.</strong> [PLACEHOLDER] Final pricing to be confirmed.",
@@ -328,7 +272,6 @@
       ]
     },
     "faq": {
-      "eyebrow": "FAQ",
       "h": "Questions, answered",
       "lead": "The usual questions before a team starts.",
       "items": [
@@ -410,13 +353,47 @@
       ],
       "legalNote": "The privacy and terms pages are not written yet.",
       "copy": "© 2026 ReleaseHub. All rights reserved.",
-      "demoNote": "Demo content: copy, prices and names are examples.",
-      "photoBy": "on Unsplash",
-      "photoAuthor": "[PLACEHOLDER] photographer",
-      "creditNames": {
-        "gulf": "City skyline",
-        "code": "Code on a laptop",
-        "office": "Office corridor"
+      "demoNote": "Demo content: copy, prices and names are examples."
+    },
+    "scenes": {
+      "chat": {
+        "alt": "Drawing of the Lead chat: you ask for dark mode, the Lead replies with a three-step plan and starts the run.",
+        "label": "Lead chat",
+        "user1": "Can we add dark mode?",
+        "lead1": "Yes. Three steps:",
+        "steps": [
+          "Theme switch",
+          "Tests first",
+          "One pull request"
+        ],
+        "user2": "Looks good. Go ahead.",
+        "lead2": "Started. RH-128 is coding.",
+        "chip": "Coding"
+      },
+      "pr": {
+        "alt": "Drawing of a pull request: four changed files with a small code diff, three passing checks and a review that is still open.",
+        "label": "Pull request",
+        "title": "Add dark mode",
+        "status": "In review",
+        "files": "4 files changed",
+        "checks": [
+          [
+            "Tests",
+            "12 passing"
+          ],
+          [
+            "Lint",
+            "No issues"
+          ],
+          [
+            "Preview",
+            "Built"
+          ]
+        ],
+        "wait": "Waiting for your review"
+      },
+      "board": {
+        "alt": "Drawing of a bilingual run board with four runs in English and Arabic: merged, in review, coding and planned."
       }
     }
   },
@@ -439,7 +416,7 @@
       "demoTag": "تجريبي",
       "phTag": "[نص تجريبي]",
       "footerNav": "التذييل",
-      "credits": "حقوق الصور"
+      "board": "لوحة التشغيل"
     },
     "nav": {
       "links": [
@@ -467,33 +444,63 @@
       "cta": "احجز عرضًا تجريبيًا"
     },
     "hero": {
-      "eyebrow": "مساحة عمل للتسليم بالذكاء الاصطناعي",
       "h1": "خطّط، اكتب الكود، وافتح طلب الدمج.",
       "sub": "يحوّل <bdi>ReleaseHub</bdi> قصصك إلى طلبات دمج. وكلاء الذكاء الاصطناعي ينفّذون العمل، ويدير المسؤول (<bdi>Lead</bdi>) التسليم نيابةً عنك.",
       "body": "يبقى القرار لفريقك، وتتولّى الوكلاء المهام الروتينية.",
       "cta": "احجز عرضًا تجريبيًا",
       "ghost": "شاهد كيف يعمل",
-      "mock": {
-        "bar": "من القصة إلى طلب الدمج",
+      "board": {
+        "title": "لوحة التشغيل",
         "demo": "تجريبي",
-        "storyLabel": "قصة",
-        "storyId": "RH-128",
-        "storyTitle": "إضافة الوضع الداكن إلى لوحة التحكم",
-        "storyMeta": "خطة معتمدة · ٣ خطوات",
-        "steps": [
-          "إضافة مفتاح للمظهر في الإعدادات",
-          "كتابة اختبارات القبول أولًا",
-          "فتح طلب دمج واحد"
+        "cols": {
+          "gate": "البوابة",
+          "run": "التشغيل",
+          "status": "الحالة"
+        },
+        "st": {
+          "planned": "مخطَّط",
+          "coding": "قيد الكتابة",
+          "review": "قيد المراجعة",
+          "merged": "تم الدمج"
+        },
+        "rows": [
+          {
+            "id": "RH-126",
+            "t": "تصدير الفواتير إلى CSV",
+            "s": "merged",
+            "gate": 4,
+            "time": "09:40"
+          },
+          {
+            "id": "RH-127",
+            "t": "تسميات عربية في التقارير",
+            "s": "review",
+            "gate": 4,
+            "time": "10:15"
+          },
+          {
+            "id": "RH-128",
+            "t": "الوضع الداكن للوحة التحكم",
+            "s": "coding",
+            "gate": 3,
+            "time": "10:32"
+          },
+          {
+            "id": "RH-129",
+            "t": "صفحة أدوار الفريق",
+            "s": "planned",
+            "gate": 2,
+            "time": "10:50"
+          },
+          {
+            "id": "RH-130",
+            "t": "نصوص صفحة الفوترة",
+            "s": "planned",
+            "gate": 2,
+            "time": "11:05"
+          }
         ],
-        "prLabel": "طلب دمج",
-        "prTitle": "إضافة الوضع الداكن إلى لوحة التحكم",
-        "prStatus": "جاهز للمراجعة",
-        "prMeta": "تغيير ٤ ملفات · ١٢ اختبارًا ناجحًا",
-        "diff": [
-          "+ const theme = readTheme();",
-          "+ root.dataset.theme = theme;",
-          "- root.className = 'light';"
-        ]
+        "note": "تشغيلات نموذجية. البوابة هي الخطوة: ١ القصة، ٢ الخطة، ٣ الكود، ٤ طلب الدمج."
       }
     },
     "trust": {
@@ -507,7 +514,6 @@
       ]
     },
     "how": {
-      "eyebrow": "كيف يعمل",
       "h": "من القصة إلى طلب الدمج في أربع خطوات",
       "lead": "لا حاجة لتعلّم عملية جديدة. اكتب القصة كما تفعل اليوم.",
       "steps": [
@@ -535,7 +541,6 @@
       "cta": "احجز عرضًا تجريبيًا"
     },
     "features": {
-      "eyebrow": "المزايا",
       "h": "كل ما يحتاجه التسليم في مساحة عمل واحدة",
       "lead": "الوكلاء ينفّذون، وفريقك يتحكّم.",
       "items": [
@@ -571,91 +576,29 @@
         }
       ],
       "row": {
-        "eyebrow": "الاختبارات أولًا",
         "h": "كل تعديل يصلك ومعه الدليل",
         "d": "يكتب الوكيل اختبارات القبول قبل الكود، فيُظهر طلب الدمج ما طُلب وأنه يعمل.",
         "bullets": [
           "معايير القبول تتحول إلى اختبارات",
           "الخطط تُعتمد قبل كتابة الكود",
           "كل قصة تعمل على فرع مستقل"
-        ],
-        "alt": "شاشة حاسوب محمول تعرض كودًا برمجيًا في محرر داكن",
-        "credit": "code"
+        ]
       },
-      "cta": "اطّلع على الأسعار"
+      "cta": "اطّلع على الأسعار",
+      "sceneNote": "طلب دمج نموذجي (تجريبي)"
     },
     "lead": {
-      "eyebrow": "المسؤول Lead",
       "h": "اسأل الـ <bdi>Lead</bdi>. هو من يدير التسليم.",
       "lead": "خطّط للأسبوع وتابع التقدّم وأزل العوائق عبر محادثة.",
-      "chatTitle": "محادثة الـ Lead",
-      "chatLabel": "محادثة نموذجية مع الـ Lead",
-      "demo": "محادثة نموذجية (تجريبية)",
-      "chat": [
-        {
-          "who": "user",
-          "name": "أنت",
-          "text": "هل يمكننا إضافة الوضع الداكن إلى لوحة التحكم؟"
-        },
-        {
-          "who": "lead",
-          "name": "Lead",
-          "text": "نعم. هذه هي الخطة:",
-          "list": [
-            "إضافة مفتاح للمظهر في صفحة الإعدادات.",
-            "كتابة اختبارات القبول أولًا.",
-            "فتح طلب دمج واحد لتراجعه."
-          ]
-        },
-        {
-          "who": "user",
-          "name": "أنت",
-          "text": "ممتاز. تفضّل بالبدء."
-        },
-        {
-          "who": "lead",
-          "name": "Lead",
-          "text": "بدأتُ. ستكون الخطة جاهزة لموافقتك خلال دقائق."
-        }
+      "asks": [
+        "ما الذي قيد المراجعة اليوم؟",
+        "خطّط لقصة الوضع الداكن.",
+        "أي التشغيلات متوقفة؟"
       ],
-      "pipeTitle": "مسار التسليم",
-      "pipeLabel": "مسار نموذجي للقصص",
-      "pipe": [
-        {
-          "id": "RH-126",
-          "t": "تصدير الفواتير إلى CSV",
-          "s": "تم الدمج",
-          "tone": "ok"
-        },
-        {
-          "id": "RH-127",
-          "t": "تسميات عربية في التقارير",
-          "s": "قيد المراجعة",
-          "tone": "info"
-        },
-        {
-          "id": "RH-128",
-          "t": "الوضع الداكن للوحة التحكم",
-          "s": "قيد الكتابة",
-          "tone": "work"
-        },
-        {
-          "id": "RH-129",
-          "t": "صفحة أدوار الفريق",
-          "s": "الخطة جاهزة",
-          "tone": "wait"
-        },
-        {
-          "id": "RH-130",
-          "t": "نصوص صفحة الفوترة",
-          "s": "الخطة جاهزة",
-          "tone": "wait"
-        }
-      ],
-      "pipeDemo": "مسار نموذجي (تجريبي)"
+      "asksH": "اسأله مثلًا",
+      "sceneNote": "محادثة نموذجية (تجريبية)"
     },
     "gulf": {
-      "eyebrow": "للخليج",
       "h": "مصمَّم للفرق والوكالات في الخليج",
       "lead": "اعمل بالعربية أو بالإنجليزية في مساحة العمل نفسها.",
       "points": [
@@ -673,12 +616,10 @@
         }
       ],
       "ph": "[نص تجريبي] الاستضافة المحلية وإقامة البيانات: الادعاء قيد التأكيد.",
-      "alt": "أفق مدينة بأبراج شاهقة وتقاطع طرق سريعة عند الغروب",
-      "credit": "gulf",
-      "cta": "تحدّث إلينا"
+      "cta": "تحدّث إلينا",
+      "sceneNote": "لوحة نموذجية (تجريبية)"
     },
     "pricing": {
-      "eyebrow": "الأسعار",
       "h": "سعر واحد لكل مستخدم",
       "lead": "ادفع عن أعضاء فريقك، لا عن عدد المشاريع.",
       "note": "<strong>أسعار تجريبية.</strong> [نص تجريبي] سيُؤكَّد السعر النهائي لاحقًا.",
@@ -727,7 +668,6 @@
       ]
     },
     "faq": {
-      "eyebrow": "الأسئلة الشائعة",
       "h": "أسئلتك، وإجاباتها",
       "lead": "الأسئلة المعتادة قبل أن يبدأ الفريق.",
       "items": [
@@ -809,13 +749,47 @@
       ],
       "legalNote": "صفحتا الخصوصية والشروط لم تُكتبا بعد.",
       "copy": "<bdi>© 2026 ReleaseHub.</bdi> جميع الحقوق محفوظة.",
-      "demoNote": "محتوى تجريبي: النصوص والأسعار والأسماء أمثلة.",
-      "photoBy": "على Unsplash",
-      "photoAuthor": "[نص تجريبي] المصوّر",
-      "creditNames": {
-        "gulf": "أفق المدينة",
-        "code": "كود على حاسوب محمول",
-        "office": "ممر مكتب"
+      "demoNote": "محتوى تجريبي: النصوص والأسعار والأسماء أمثلة."
+    },
+    "scenes": {
+      "chat": {
+        "alt": "رسم لمحادثة الـ Lead: تطلب الوضع الداكن، فيردّ الـ Lead بخطة من ثلاث خطوات ويبدأ التشغيل.",
+        "label": "محادثة Lead",
+        "user1": "هل نضيف الوضع الداكن؟",
+        "lead1": "نعم. ثلاث خطوات:",
+        "steps": [
+          "مفتاح المظهر",
+          "الاختبارات أولًا",
+          "طلب دمج واحد"
+        ],
+        "user2": "ممتاز. تفضّل بالبدء.",
+        "lead2": "بدأنا. RH-128 قيد الكتابة.",
+        "chip": "قيد الكتابة"
+      },
+      "pr": {
+        "alt": "رسم لطلب دمج: أربعة ملفات معدّلة مع مقطع صغير من الفروقات، وثلاثة فحوص ناجحة، ومراجعة لم تكتمل بعد.",
+        "label": "طلب دمج",
+        "title": "إضافة الوضع الداكن",
+        "status": "قيد المراجعة",
+        "files": "تغيير ٤ ملفات",
+        "checks": [
+          [
+            "الاختبارات",
+            "١٢ ناجحًا"
+          ],
+          [
+            "فحص الكود",
+            "لا ملاحظات"
+          ],
+          [
+            "المعاينة",
+            "اكتمل البناء"
+          ]
+        ],
+        "wait": "بانتظار مراجعتك"
+      },
+      "board": {
+        "alt": "رسم للوحة تشغيل بلغتين، بأربع تشغيلات بالعربية والإنجليزية: تم الدمج، قيد المراجعة، قيد الكتابة، مخطَّط."
       }
     }
   }

@@ -1,6 +1,7 @@
 // Renders index.html (English) and ar/index.html (Arabic) from content/demo.json.
 // Usage: node tools/render-pages.mjs   (no dependencies, no package.json)
 // Section markup adapted from open-source Tailwind block patterns (see README).
+// RHL-11: departure-board identity; the hero board, the ticket plans and the three drawn scenes live here.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,7 +13,6 @@ const data = JSON.parse(readFileSync(join(root, 'content', 'demo.json'), 'utf8')
 const ICONS = {
   check: '<path d="M20 6 9 17l-5-5"/>',
   chevron: '<path d="m6 9 6 6 6-6"/>',
-  arrow: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
   menu: '<path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>',
   x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
   pr: '<circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M6 9v12"/>',
@@ -30,19 +30,19 @@ const ICONS = {
 };
 const ic = (n, cls = 'size-6') =>
   `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[n]}</svg>`;
-// Direction icons mirror in right-to-left.
-const icDir = (n, cls = 'size-5') => ic(n, `${cls} rtl:-scale-x-100`);
+
 
 const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
 const num = (n, L) => (L.lang === 'ar' ? String(n).replace(/\d/g, (d) => AR_DIGITS[d]) : String(n));
 
-const logo = `<svg class="size-8 text-accent-600" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+// Logo: two flaps of a split-flap display (enamel plate, amber and paper flap).
+const logo = `<svg class="size-8" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="6" class="fill-enamel"/><rect x="7" y="6" width="18" height="9" rx="2" class="fill-amber"/><rect x="7" y="17" width="18" height="9" rx="2" class="fill-paper"/></svg>`;
 
 function header(L) {
   const links = L.nav.links.map(([id, t]) => `<li><a class="nav-link" href="#${id}">${t}</a></li>`).join('');
   const sheetLinks = L.nav.links.map(([id, t]) => `<li><a class="sheet-link" href="#${id}" data-sheet-close>${t}</a></li>`).join('');
   const toggle = (cls) => `<a class="lang-switch ${cls}" href="${L.otherHref}" hreflang="${L.otherLang}" lang="${L.otherLang}" aria-label="${L.otherLabel}" data-lang-switch>${L.otherName}</a>`;
-  return `<header class="sticky top-0 z-40 border-b border-slate-200 bg-white">
+  return `<header class="sticky top-0 z-40 border-b border-line bg-white">
     <div class="wrap flex h-16 items-center gap-2 sm:gap-4">
       <a class="brand" href="#hero" aria-label="ReleaseHub">${logo}<span>ReleaseHub</span></a>
       <nav class="ms-8 hidden lg:block" aria-label="${L.ui.navLabel}"><ul class="flex items-center gap-1">${links}</ul></nav>
@@ -63,120 +63,192 @@ function header(L) {
         <nav class="mt-6" aria-label="${L.ui.sheetLabel}"><ul class="flex flex-col">${sheetLinks}</ul></nav>
         <div class="mt-auto flex flex-col gap-3 pt-6">
           <a class="btn btn-primary w-full" href="#cta" data-cta data-sheet-close>${L.nav.cta}</a>
-          ${toggle('justify-center ring-1 ring-slate-300')}
+          ${toggle('justify-center ring-1 ring-muted')}
         </div>
       </div>
     </div>`;
 }
 
-function sectionHead(eyebrow, h, lead, id, extra = '') {
+function sectionHead(h, lead, id, extra = '') {
   return `<div class="max-w-2xl ${extra}">
-        <p class="eyebrow">${eyebrow}</p>
         <h2 id="${id}-title" class="h2">${h}</h2>
         <p class="lede">${lead}</p>
       </div>`;
 }
 
+// ---- Split-flap plates. Each .ch holds its final text in the HTML (no-JS and reduced
+// motion see it as is); main.js swaps in a start character and flips each plate once.
+// Arabic joins letters, so an Arabic status is one plate (a word), Latin is one plate per letter.
+function plates(L, label, from) {
+  if (L.lang === 'ar') return `<span class="ch ch-word" data-from="${from}">${label}</span>`;
+  return [...label].map((c) => (c === ' ' ? '<span class="ch-gap"></span>' : `<span class="ch">${c}</span>`)).join('');
+}
+
+function board(L) {
+  const b = L.hero.board;
+  const order = Object.keys(b.st);
+  const rows = b.rows.map((r, i) => {
+    const label = b.st[r.s];
+    const from = b.st[order[(order.indexOf(r.s) + 2) % order.length]];
+    return `<li class="board-row">
+              <span class="gate-plate"><span class="sr-only">${b.cols.gate} ${num(r.gate, L)}</span><span class="ch" aria-hidden="true">${num(r.gate, L)}</span></span>
+              <div class="min-w-0">
+                <p class="font-semibold text-white">${r.t}</p>
+                <p class="mt-0.5 flex gap-3 text-sm text-enamel-text"><bdi dir="ltr">${r.id}</bdi><bdi dir="ltr"><time>${num(r.time, L)}</time></bdi></p>
+              </div>
+              <p class="board-status st-${r.s}"><span class="sr-only">${label}</span><span class="flex items-center gap-0.5" aria-hidden="true">${plates(L, label, from)}</span></p>
+            </li>`;
+  }).join('');
+  return `<div class="board" data-flip role="group" aria-label="${b.title}">
+          <div class="flex items-center justify-between bg-enamel-deep px-4 py-3 sm:px-6">
+            <p class="flex items-center gap-3 font-semibold text-white"><span class="size-3 rounded-[2px] bg-amber" aria-hidden="true"></span>${b.title}</p>
+            <span class="badge badge-demo">${b.demo}</span>
+          </div>
+          <div class="board-cols" aria-hidden="true"><span>${b.cols.gate}</span><span>${b.cols.run}</span><span>${b.cols.status}</span></div>
+          <ol class="board-rows">${rows}</ol>
+          <p class="px-4 py-3 text-sm text-enamel-text sm:px-6">${b.note}</p>
+        </div>`;
+}
+
 function hero(L) {
-  const h = L.hero, m = h.mock;
-  const steps = m.steps.map((s) => `<li class="flex items-start gap-2">${ic('check', 'mt-0.5 size-5 shrink-0 text-success')}<span>${s}</span></li>`).join('');
-  const diff = m.diff.map((d) => `<span class="block ${d[0] === '+' ? 'text-emerald-300' : 'text-red-300'}">${d}</span>`).join('');
+  const h = L.hero;
   return `<!-- section:hero -->
-    <section id="hero" aria-labelledby="hero-title" class="bg-white py-12 md:py-20 lg:py-24">
-      <div class="wrap grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+    <section id="hero" aria-labelledby="hero-title" class="bg-paper py-12 md:py-20 lg:py-24">
+      <div class="wrap grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div>
-          <p class="eyebrow">${h.eyebrow}</p>
           <h1 id="hero-title" class="display">${h.h1}</h1>
-          <p class="mt-6 max-w-xl text-lg text-slate-700 sm:text-xl">${h.sub}</p>
-          <p class="mt-3 max-w-xl text-base text-slate-600">${h.body}</p>
+          <p class="mt-6 max-w-xl text-xl text-ink">${h.sub}</p>
+          <p class="mt-3 max-w-xl text-lg text-muted">${h.body}</p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a class="btn btn-primary btn-lg" href="#cta" data-cta>${h.cta}${icDir('arrow')}</a>
+            <a class="btn btn-primary btn-lg" href="#cta" data-cta>${h.cta}</a>
             <a class="btn btn-outline btn-lg" href="#how">${h.ghost}</a>
           </div>
         </div>
-        <div class="mock" aria-hidden="false" role="group" aria-label="${m.bar}">
-          <div class="flex items-center justify-between border-b border-slate-200 bg-surface px-4 py-3">
-            <span class="text-sm font-semibold text-slate-700">${m.bar}</span>
-            <span class="badge badge-demo">${m.demo}</span>
-          </div>
-          <div class="grid grid-cols-1 gap-4 p-4 sm:p-6">
-            <div class="rounded-xl border border-slate-200 bg-surface p-4">
-              <div class="flex items-center gap-2 text-sm text-slate-600">${ic('file', 'size-5')}<span>${m.storyLabel}</span><bdi class="badge badge-neutral" dir="ltr">${m.storyId}</bdi></div>
-              <p class="mt-2 font-semibold text-ink">${m.storyTitle}</p>
-              <p class="mt-1 text-sm text-slate-600">${m.storyMeta}</p>
-              <ul class="mt-3 space-y-2 text-sm text-slate-700">${steps}</ul>
-            </div>
-            <div class="flex justify-center text-accent-600">${ic('chevron', 'size-6')}</div>
-            <div class="rounded-xl border-2 border-accent-600 bg-white p-4 shadow-sm">
-              <div class="flex flex-wrap items-center gap-2 text-sm text-slate-600">${ic('pr', 'size-5 text-accent-600')}<span>${m.prLabel}</span><span class="badge badge-ok">${m.prStatus}</span></div>
-              <p class="mt-2 font-semibold text-ink">${m.prTitle}</p>
-              <p class="mt-1 text-sm text-slate-600">${m.prMeta}</p>
-              <pre class="mt-3 whitespace-pre-wrap break-words rounded-lg bg-ink p-3 text-sm leading-6 text-slate-100" dir="ltr"><code>${diff}</code></pre>
-            </div>
-          </div>
-        </div>
+        ${board(L)}
       </div>
     </section>
     <!-- /section:hero -->
 
-    <section aria-label="${L.trust.caption}" class="border-y border-slate-200 bg-surface py-8">
-      <div class="wrap flex flex-col items-center gap-4 text-center">
-        <p class="text-sm text-slate-600">${L.trust.caption}</p>
-        <ul class="flex flex-wrap justify-center gap-x-10 gap-y-3 text-lg font-semibold text-slate-700">${L.trust.names.map((n) => `<li><bdi dir="ltr">${n}</bdi></li>`).join('')}</ul>
+    <section aria-label="${L.trust.caption}" class="bg-white py-8">
+      <div class="wrap flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:gap-10">
+        <p class="max-w-xs text-sm text-muted">${L.trust.caption}</p>
+        <ul class="flex flex-wrap gap-x-10 gap-y-3 text-xl font-semibold text-muted">${L.trust.names.map((n) => `<li><bdi dir="ltr">${n}</bdi></li>`).join('')}</ul>
       </div>
     </section>`;
 }
 
 function how(L) {
   const s = L.how;
-  const items = s.steps.map((st, i) => `<li class="card relative p-6">
-            <div class="flex items-center justify-between">
-              <span class="icon-box">${ic(st.icon)}</span>
-              <span class="step-num" aria-hidden="true">${num(i + 1, L)}</span>
+  const items = s.steps.map((st, i) => `<li class="gate">
+            <span class="gate-num" aria-hidden="true">${num(i + 1, L)}</span>
+            <div>
+              <h3 class="h3 flex items-center gap-2">${ic(st.icon, 'size-5 text-enamel-raised')}${st.t}</h3>
+              <p class="mt-2 text-muted">${st.d}</p>
             </div>
-            <h3 class="h3 mt-5">${st.t}</h3>
-            <p class="mt-2 text-slate-700">${st.d}</p>
           </li>`).join('');
   return `<!-- section:how-it-works -->
     <section id="how" aria-labelledby="how-title" class="section bg-white">
       <div class="wrap">
-        ${sectionHead(s.eyebrow, s.h, s.lead, 'how')}
-        <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">${items}</ol>
-        <p class="mt-10"><a class="btn btn-primary" href="#cta" data-cta>${s.cta}${icDir('arrow')}</a></p>
+        ${sectionHead(s.h, s.lead, 'how')}
+        <ol class="gate-list mt-12">${items}</ol>
+        <p class="mt-10"><a class="btn btn-outline" href="#cta" data-cta>${s.cta}</a></p>
       </div>
     </section>
     <!-- /section:how-it-works -->`;
 }
 
-function photo(ph, key, alt, cls, lazy = true) {
-  const p = ph[key];
-  return `<img class="${cls}" src="${L_BASE}assets/img/${p.file}" width="${p.w}" height="${p.h}" alt="${alt}" ${lazy ? 'loading="lazy" decoding="async"' : ''}>`;
+// ---- Drawn scenes: one style (white panel, 2px enamel outline, enamel title bar, amber lamp,
+// flat fills, no gradients). Frames are dir="ltr"; the content is laid out in the page's
+// reading direction with logical offsets (x measured from the start edge), so Arabic scenes
+// carry real Arabic, right-aligned. Code is never mirrored.
+function ctx(L) {
+  const ar = L.lang === 'ar';
+  const X = (v) => (ar ? 400 - v : v);
+  const R = (v, w) => (ar ? 400 - v - w : v); // rect x from a start offset and width
+  const dir = ar ? ' direction="rtl"' : '';
+  // text at a start offset / at an end offset (offset from the end edge) / centred at a start offset
+  const t = (v, y, s, cls, size, wt = 400) => `<text x="${X(v)}" y="${y}"${dir} class="${cls}" font-size="${size}" font-weight="${wt}">${s}</text>`;
+  const te = (v, y, s, cls, size, wt = 400) => `<text x="${ar ? v : 400 - v}" y="${y}"${dir} text-anchor="end" class="${cls}" font-size="${size}" font-weight="${wt}">${s}</text>`;
+  const tc = (v, y, s, cls, size, wt = 400) => `<text x="${X(v)}" y="${y}"${dir} text-anchor="middle" class="${cls}" font-size="${size}" font-weight="${wt}">${s}</text>`;
+  return { ar, X, R, t, te, tc };
 }
-let L_BASE = '';
+const SCENE_BAR = 'M1 46V13a12 12 0 0 1 12-12h374a12 12 0 0 1 12 12v33z';
+function scene(id, alt, h, body) {
+  return `<svg class="scene" dir="ltr" viewBox="0 0 400 ${h}" role="img" aria-labelledby="${id}-t" focusable="false"><title id="${id}-t">${alt}</title>
+            <rect x="1" y="1" width="398" height="${h - 2}" rx="12" class="fill-white stroke-enamel" stroke-width="2"/><path d="${SCENE_BAR}" class="fill-enamel"/>${body}</svg>`;
+}
+
+function sceneChat(L) {
+  const c = L.scenes.chat, { R, t, tc } = ctx(L);
+  const steps = c.steps.map((s, i) => `<rect x="${L.lang === 'ar' ? 400 - 100 - 8 : 100}" y="${151 + i * 22}" width="8" height="8" rx="2" class="fill-amber"/>${t(116, 160 + i * 22, s, 'fill-white', 16)}`).join('');
+  return scene('sc-chat', c.alt, 378, `
+            <rect x="${R(16, 15)}" y="16" width="14" height="14" rx="3" class="fill-amber"/>${t(40, 29, c.label, 'fill-white', 16, 600)}
+            <rect x="${R(16, 236)}" y="58" width="236" height="40" rx="10" class="fill-enamel-50 stroke-line" stroke-width="1.5"/>${t(30, 83, c.user1, 'fill-ink', 16)}
+            <rect x="${R(84, 300)}" y="110" width="300" height="116" rx="10" class="fill-enamel"/>${t(100, 136, c.lead1, 'fill-white', 16, 600)}${steps}
+            <rect x="${R(16, 236)}" y="238" width="236" height="40" rx="10" class="fill-enamel-50 stroke-line" stroke-width="1.5"/>${t(30, 263, c.user2, 'fill-ink', 16)}
+            <rect x="${R(84, 300)}" y="290" width="300" height="72" rx="10" class="fill-enamel"/>${t(100, 315, c.lead2, 'fill-white', 16, 600)}
+            <rect x="${R(100, 116)}" y="326" width="116" height="26" rx="4" class="fill-amber"/>${tc(158, 344, c.chip, 'fill-enamel', 15, 700)}`);
+}
+
+function scenePR(L) {
+  const c = L.scenes.pr, { ar, X, R, t, te, tc } = ctx(L);
+  const mono = 'font-mono';
+  const code = (y, s, fill, bg) => `${bg ? `<rect x="17" y="${y - 16}" width="366" height="22" class="${bg}"/>` : ''}<text x="28" y="${y}" class="${mono} ${fill}" font-size="14">${s}</text>`;
+  const checks = c.checks.map(([a, b], i) => {
+    const cy = 252 + i * 30;
+    return `<circle cx="${X(25)}" cy="${cy}" r="9" class="fill-go"/><path d="M${X(25) - 4} ${cy}l3 3 5-6" fill="none" class="stroke-white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>${t(44, cy + 5, a, 'fill-ink', 16, 600)}${te(16, cy + 5, b, 'fill-muted', 15)}`;
+  }).join('');
+  const wy = 342;
+  return scene('sc-pr', c.alt, 372, `
+            <rect x="${R(16, 15)}" y="16" width="14" height="14" rx="3" class="fill-amber"/>${t(40, 29, c.label, 'fill-white', 16, 600)}
+            <rect x="${R(268, 116)}" y="10" width="116" height="26" rx="4" class="fill-amber"/>${tc(326, 28, c.status, 'fill-enamel', 15, 700)}
+            ${t(16, 80, c.title, 'fill-ink', 20, 700)}${t(16, 101, c.files, 'fill-muted', 15)}
+            <rect x="16" y="114" width="368" height="104" rx="8" class="fill-enamel-deep"/>
+            ${code(137, "- root.className = 'light';", 'fill-hold-lit', 'fill-hold/30')}${code(159, '+ const theme = readTheme();', 'fill-go-lit', 'fill-go/30')}${code(181, '+ root.dataset.theme = theme;', 'fill-go-lit', 'fill-go/30')}${code(203, '  render(theme);', 'fill-enamel-text', '')}
+            ${checks}
+            <circle cx="${X(25)}" cy="${wy}" r="8" class="fill-amber-soft stroke-amber-deep" stroke-width="2"/><path d="M${X(25)} ${wy - 4}v4l3 2" fill="none" class="stroke-enamel" stroke-width="1.75" stroke-linecap="round"/>${t(44, wy + 5, c.wait, 'fill-ink', 16, 600)}`);
+}
+
+function sceneBoard(L) {
+  const en = data.en.hero.board.st, ar = data.ar.hero.board.st;
+  const rows = [
+    ['4', 'Invoice export', 'تصدير الفواتير', 'merged', 'fill-go'],
+    ['4', 'Arabic reports', 'تقارير عربية', 'review', 'fill-enamel-raised'],
+    ['3', 'Dark mode', 'الوضع الداكن', 'coding', 'fill-amber-deep'],
+    ['2', 'Team roles', 'أدوار الفريق', 'planned', 'fill-muted'],
+  ].map(([g, e, a, s, f], i) => {
+    const y = 62 + i * 64;
+    return `<rect x="16" y="${y}" width="40" height="40" rx="6" class="fill-enamel"/><rect x="16" y="${y + 19.5}" width="40" height="1.5" class="fill-white/25"/><text x="36" y="${y + 28}" text-anchor="middle" class="fill-amber font-board" font-size="24" font-weight="600">${g}</text>
+            <text x="68" y="${y + 17}" class="fill-ink" font-size="16" font-weight="600">${e}</text><text x="68" y="${y + 37}" class="${f}" font-size="15" font-weight="600">${en[s]}</text>
+            <text x="384" y="${y + 17}" direction="rtl" class="fill-ink" font-size="16" font-weight="600">${a}</text><text x="384" y="${y + 37}" direction="rtl" class="${f}" font-size="15" font-weight="600">${ar[s]}</text>
+            ${i < 3 ? `<line x1="16" y1="${y + 52}" x2="384" y2="${y + 52}" class="stroke-line" stroke-width="1.5" stroke-dasharray="6 6"/>` : ''}`;
+  }).join('');
+  return scene('sc-board', L.scenes.board.alt, 326, `
+            <rect x="16" y="16" width="14" height="14" rx="3" class="fill-amber"/><text x="40" y="29" class="fill-white" font-size="16" font-weight="600">${data.en.ui.board}</text><text x="384" y="29" direction="rtl" class="fill-white" font-size="16" font-weight="600">${data.ar.ui.board}</text>
+            ${rows}`);
+}
 
 function features(L) {
   const s = L.features, r = s.row;
-  const cards = s.items.map((it) => `<li class="card p-6">
-            <span class="icon-box">${ic(it.icon)}</span>
-            <h3 class="h3 mt-5">${it.t}</h3>
-            <p class="mt-2 text-slate-700">${it.d}</p>
+  const items = s.items.map((it) => `<li class="flex gap-4">
+            <span class="feat-icon">${ic(it.icon, 'size-5')}</span>
+            <div><h3 class="h3">${it.t}</h3><p class="mt-1 text-muted">${it.d}</p></div>
           </li>`).join('');
-  const bullets = r.bullets.map((b) => `<li class="flex items-start gap-3">${ic('check', 'mt-1 size-5 shrink-0 text-success')}<span>${b}</span></li>`).join('');
+  const bullets = r.bullets.map((b) => `<li class="flex items-start gap-3">${ic('check', 'mt-1 size-5 shrink-0 text-go')}<span>${b}</span></li>`).join('');
   return `<!-- section:features -->
-    <section id="features" aria-labelledby="features-title" class="section bg-surface">
+    <section id="features" aria-labelledby="features-title" class="section bg-paper">
       <div class="wrap">
-        ${sectionHead(s.eyebrow, s.h, s.lead, 'features')}
-        <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">${cards}</ul>
-        <div class="mt-16 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        ${sectionHead(s.h, s.lead, 'features')}
+        <div class="mt-12 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p class="eyebrow">${r.eyebrow}</p>
             <h3 class="h2">${r.h}</h3>
             <p class="lede">${r.d}</p>
-            <ul class="mt-6 space-y-3 text-slate-700">${bullets}</ul>
+            <ul class="mt-6 space-y-3 text-ink">${bullets}</ul>
             <p class="mt-8"><a class="btn btn-outline" href="#pricing">${s.cta}</a></p>
           </div>
-          ${photo(data.photos, r.credit, r.alt, 'photo')}
+          <figure class="m-0">${scenePR(L)}<figcaption class="mt-3 text-sm text-muted">${s.sceneNote}</figcaption></figure>
         </div>
+        <ul class="mt-16 grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">${items}</ul>
       </div>
     </section>
     <!-- /section:features -->`;
@@ -184,32 +256,17 @@ function features(L) {
 
 function lead(L) {
   const s = L.lead;
-  const msgs = s.chat.map((m) => {
-    const list = m.list ? `<ol class="mt-2 list-decimal space-y-1 ps-5">${m.list.map((x) => `<li>${x}</li>`).join('')}</ol>` : '';
-    const isLead = m.who === 'lead';
-    return `<li class="msg ${isLead ? 'msg-lead' : 'msg-user'}"><span class="msg-who">${isLead ? '<bdi>Lead</bdi>' : m.name}</span><p>${m.text}</p>${list}</li>`;
-  }).join('');
-  const pipe = s.pipe.map((p) => `<li class="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3">
-              <span class="step-dot step-${p.tone}" aria-hidden="true"></span>
-              <div class="min-w-0 flex-1"><bdi class="text-sm text-slate-600" dir="ltr">${p.id}</bdi><p class="font-medium text-ink">${p.t}</p></div>
-              <span class="badge badge-${p.tone}">${p.s}</span>
-            </li>`).join('');
+  const asks = s.asks.map((a) => `<li class="flex items-start gap-3"><span class="mt-2.5 size-2 shrink-0 rounded-[2px] bg-amber" aria-hidden="true"></span><span>${a}</span></li>`).join('');
   return `<!-- section:lead-chat -->
-    <section id="lead" aria-labelledby="lead-title" class="section bg-white">
-      <div class="wrap">
-        ${sectionHead(s.eyebrow, s.h, s.lead, 'lead')}
-        <div class="mt-12 grid gap-6 lg:grid-cols-2">
-          <figure class="mock m-0 flex flex-col" role="group" aria-label="${s.chatLabel}">
-            <div class="flex items-center gap-2 border-b border-slate-200 bg-surface px-4 py-3">${ic('chat', 'size-5 text-accent-600')}<span class="text-sm font-semibold text-slate-700">${s.chatTitle}</span></div>
-            <ol class="flex flex-1 flex-col gap-3 p-4 sm:p-6">${msgs}</ol>
-            <figcaption class="border-t border-slate-200 px-4 py-3 text-sm text-slate-600">${s.demo}</figcaption>
-          </figure>
-          <div class="mock flex flex-col" role="group" aria-label="${s.pipeLabel}">
-            <div class="flex items-center gap-2 border-b border-slate-200 bg-surface px-4 py-3">${ic('layers', 'size-5 text-accent-600')}<span class="text-sm font-semibold text-slate-700">${s.pipeTitle}</span></div>
-            <ol class="flex flex-1 flex-col justify-between gap-3 p-4 sm:p-6">${pipe}</ol>
-            <p class="border-t border-slate-200 px-4 py-3 text-sm text-slate-600">${s.pipeDemo}</p>
-          </div>
+    <section id="lead" aria-labelledby="lead-title" class="section on-dark bg-enamel-deep">
+      <div class="wrap grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h2 id="lead-title" class="h2 text-white">${s.h}</h2>
+          <p class="lede text-enamel-text">${s.lead}</p>
+          <p class="mt-8 font-semibold text-white">${s.asksH}</p>
+          <ul class="mt-3 space-y-3 text-lg text-white">${asks}</ul>
         </div>
+        <figure class="m-0 lg:order-first">${sceneChat(L)}<figcaption class="mt-3 text-sm text-enamel-text">${s.sceneNote}</figcaption></figure>
       </div>
     </section>
     <!-- /section:lead-chat -->`;
@@ -218,19 +275,18 @@ function lead(L) {
 function gulf(L) {
   const s = L.gulf;
   const icons = ['lang', 'globe', 'users'];
-  const pts = s.points.map((p, i) => `<li class="flex gap-4"><span class="icon-box shrink-0">${ic(icons[i])}</span><p class="text-slate-700"><strong class="block text-lg text-ink">${p.t}</strong>${p.d}</p></li>`).join('');
+  const pts = s.points.map((p, i) => `<li class="gulf-row">${ic(icons[i], 'mt-1 size-6 shrink-0 text-enamel-raised')}<p class="text-muted"><strong class="block text-lg text-ink">${p.t}</strong>${p.d}</p></li>`).join('');
   return `<!-- section:audience -->
-    <section id="gulf" aria-labelledby="gulf-title" class="section bg-surface">
+    <section id="gulf" aria-labelledby="gulf-title" class="section bg-white">
       <div class="wrap grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        ${photo(data.photos, s.credit, s.alt, 'photo')}
         <div>
-          <p class="eyebrow">${s.eyebrow}</p>
           <h2 id="gulf-title" class="h2">${s.h}</h2>
           <p class="lede">${s.lead}</p>
-          <ul class="mt-8 space-y-6">${pts}</ul>
-          <p class="mt-6 rounded-lg border border-dashed border-slate-400 bg-white p-3 text-sm text-slate-700">${s.ph}</p>
-          <p class="mt-8"><a class="btn btn-primary" href="#cta" data-cta>${s.cta}</a></p>
+          <ul class="mt-8 space-y-4">${pts}</ul>
+          <p class="note mt-6">${s.ph}</p>
+          <p class="mt-8"><a class="btn btn-outline" href="#cta" data-cta>${s.cta}</a></p>
         </div>
+        <figure class="m-0">${sceneBoard(L)}<figcaption class="mt-3 text-sm text-muted">${s.sceneNote}</figcaption></figure>
       </div>
     </section>
     <!-- /section:audience -->`;
@@ -239,22 +295,24 @@ function gulf(L) {
 function pricing(L) {
   const s = L.pricing;
   const plans = s.plans.map((p) => {
-    const items = p.items.map((i) => `<li class="flex items-start gap-3">${ic('check', 'mt-1 size-5 shrink-0 text-success')}<span>${i}</span></li>`).join('');
-    return `<li class="plan ${p.featured ? 'plan-featured' : ''}">
+    const items = p.items.map((i) => `<li class="flex items-start gap-3">${ic('check', 'mt-1 size-5 shrink-0 text-go')}<span>${i}</span></li>`).join('');
+    return `<li class="ticket ${p.featured ? 'ticket-featured' : ''}">
             ${p.featured ? `<p class="badge badge-accent absolute -top-3 start-6">${s.flag}</p>` : ''}
-            <h3 class="h3">${p.name}</h3>
-            <p class="mt-1 text-slate-600">${p.desc}</p>
-            <p class="mt-6 flex flex-wrap items-baseline gap-x-2 gap-y-1"><span class="text-4xl font-bold tracking-tight text-ink"><data value="${p.amount}">${p.show}</data> <bdi dir="ltr" class="text-xl">USD</bdi></span><span class="text-slate-600">${s.unit}</span></p>
-            <p class="mt-2"><span class="badge badge-ph">${s.tag}</span></p>
-            <ul class="mt-6 flex-1 space-y-3 text-slate-700">${items}</ul>
-            <a class="btn ${p.featured ? 'btn-primary' : 'btn-outline'} mt-8 w-full" href="#cta" data-cta>${p.cta}</a>
+            <div class="ticket-head"><h3 class="h3 ${p.featured ? 'text-white' : ''}">${p.name}</h3><p class="mt-1">${p.desc}</p></div>
+            <div class="ticket-perf" aria-hidden="true"><span></span></div>
+            <div class="flex flex-1 flex-col p-6 pt-4">
+              <p class="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span class="text-5xl font-bold tracking-tight text-ink"><data value="${p.amount}">${p.show}</data> <bdi dir="ltr" class="text-xl">USD</bdi></span><span class="text-muted">${s.unit}</span></p>
+              <p class="mt-2"><span class="badge badge-ph">${s.tag}</span></p>
+              <ul class="mt-6 flex-1 space-y-3 text-ink">${items}</ul>
+              <a class="btn ${p.featured ? 'btn-primary' : 'btn-outline'} mt-8 w-full" href="#cta" data-cta>${p.cta}</a>
+            </div>
           </li>`;
   }).join('');
   return `<!-- section:pricing -->
-    <section id="pricing" aria-labelledby="pricing-title" class="section bg-white">
+    <section id="pricing" aria-labelledby="pricing-title" class="section bg-paper">
       <div class="wrap">
-        ${sectionHead(s.eyebrow, s.h, s.lead, 'pricing')}
-        <p class="mt-4 max-w-2xl rounded-lg border border-dashed border-slate-400 bg-surface p-3 text-sm text-slate-700">${s.note}</p>
+        ${sectionHead(s.h, s.lead, 'pricing')}
+        <p class="note mt-4 max-w-2xl">${s.note}</p>
         <!-- Example prices: placeholders, change them in content/demo.json -->
         <ul class="mt-12 grid items-stretch gap-8 md:grid-cols-3">${plans}</ul>
       </div>
@@ -269,9 +327,9 @@ function faq(L) {
           <p>${it.a}</p>
         </details>`).join('');
   return `<!-- section:faq -->
-    <section id="faq" aria-labelledby="faq-title" class="section bg-surface">
+    <section id="faq" aria-labelledby="faq-title" class="section bg-white">
       <div class="wrap grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-        ${sectionHead(s.eyebrow, s.h, s.lead, 'faq', 'lg:sticky lg:top-24 lg:self-start')}
+        ${sectionHead(s.h, s.lead, 'faq', 'lg:sticky lg:top-24 lg:self-start')}
         <div class="space-y-3">${items}</div>
       </div>
     </section>
@@ -279,19 +337,18 @@ function faq(L) {
 }
 
 function cta(L) {
-  const s = L.cta;
-  const alt = L.footer.creditNames.office;
+  const s = L.cta, b = L.hero.board;
   return `<!-- section:cta -->
-    <section id="cta" aria-labelledby="cta-title" class="on-dark relative isolate overflow-hidden bg-ink py-16 md:py-24">
-      <img class="absolute inset-0 -z-10 size-full object-cover opacity-25" src="${L_BASE}assets/img/${data.photos.office.file}" width="${data.photos.office.w}" height="${data.photos.office.h}" alt="${alt}" loading="lazy" decoding="async">
+    <section id="cta" aria-labelledby="cta-title" class="on-dark bg-enamel py-16 md:py-24">
       <div class="wrap text-center">
+        <p class="board-status st-merged mb-8 flex justify-center" aria-hidden="true"><span class="flex items-center gap-0.5">${plates(L, b.st.merged, b.st.planned)}</span></p>
         <h2 id="cta-title" class="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">${s.h}</h2>
-        <p class="mx-auto mt-4 max-w-xl text-lg text-slate-200">${s.d}</p>
+        <p class="mx-auto mt-4 max-w-xl text-xl text-enamel-text">${s.d}</p>
         <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <a class="btn btn-light btn-lg" href="#" data-cta>${s.btn}${icDir('arrow')}</a>
-          <a class="btn btn-ghost-dark btn-lg" href="#faq">${s.ghost}</a>
+          <a class="btn btn-primary btn-lg" href="#" data-cta>${s.btn}</a>
+          <a class="btn btn-outline-dark btn-lg" href="#faq">${s.ghost}</a>
         </div>
-        <p class="mt-6 text-sm text-slate-300">${s.note}</p>
+        <p class="mt-6 text-sm text-enamel-text">${s.note}</p>
       </div>
     </section>
     <!-- /section:cta -->`;
@@ -300,23 +357,18 @@ function cta(L) {
 function footer(L) {
   const f = L.footer;
   const cols = f.cols.map((c) => `<div><h2 class="footer-h">${c.h}</h2><ul class="mt-3">${c.links.map(([h, t]) => `<li><a class="footer-link" href="${h}">${t}</a></li>`).join('')}</ul></div>`).join('');
-  const credits = Object.keys(data.photos).map((k) => `<li><a class="footer-link" href="${data.photos[k].unsplash}" rel="noopener" target="_blank">${f.creditNames[k]} · ${f.photoAuthor} · Unsplash</a></li>`).join('');
-  return `<footer class="on-dark bg-ink pt-16 text-slate-300">
+  return `<footer class="on-dark bg-enamel-deep pt-16 text-enamel-text">
     <div class="wrap">
       <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
         <div class="lg:col-span-2">
-          <span class="brand text-white">${logo}<span>ReleaseHub</span></span>
+          <span class="brand text-white rounded-md [&_svg]:ring-1 [&_svg]:ring-enamel-raised [&_svg]:rounded-md">${logo}<span>ReleaseHub</span></span>
           <p class="mt-4 max-w-xs">${f.blurb}</p>
           <p class="mt-4"><a class="lang-switch lang-switch-dark" href="${L.otherHref}" hreflang="${L.otherLang}" lang="${L.otherLang}" aria-label="${L.otherLabel}" data-lang-switch>${L.otherName}</a></p>
         </div>
         <nav class="contents" aria-label="${L.ui.footerNav}">${cols}</nav>
         <div><h2 class="footer-h">${f.legalH}</h2><ul class="mt-3">${f.legal.map((x) => `<li class="flex min-h-11 items-center">${x}</li>`).join('')}</ul><p class="mt-2 text-sm">${f.legalNote}</p></div>
       </div>
-      <div class="mt-12 border-t border-slate-700 py-8">
-        <h2 class="footer-h">${L.ui.credits}</h2>
-        <ul class="mt-3 grid gap-x-8 md:grid-cols-3">${credits}</ul>
-      </div>
-      <div class="flex flex-col gap-2 border-t border-slate-700 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+      <div class="mt-12 flex flex-col gap-2 border-t border-enamel-raised py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p>${f.copy}</p>
         <p><span class="badge badge-demo me-2">${L.ui.demoTag}</span>${f.demoNote}</p>
       </div>
@@ -325,7 +377,6 @@ function footer(L) {
 }
 
 function page(L) {
-  L_BASE = L.base;
   const b = L.base;
   return `<!DOCTYPE html>
 <html lang="${L.lang}" dir="${L.dir}">
@@ -333,7 +384,8 @@ function page(L) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${L.title}</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2312263f'/%3E%3Crect x='7' y='6' width='18' height='9' rx='2' fill='%23ffb43a'/%3E%3Crect x='7' y='17' width='18' height='9' rx='2' fill='%23f5f7f9'/%3E%3C/svg%3E">
+  ${(L.lang === 'ar' ? ['ibm-plex-sans-arabic-arabic-400-normal', 'ibm-plex-sans-arabic-arabic-700-normal'] : ['barlow-semi-condensed-latin-400-normal', 'barlow-semi-condensed-latin-700-normal']).map((f) => `<link rel="preload" href="${b}assets/fonts/${f}.woff2" as="font" type="font/woff2" crossorigin>`).join('\n  ')}
   <link rel="stylesheet" href="${b}assets/css/styles.css">
   <script src="${b}assets/js/i18n.js" defer></script>
   <script src="${b}assets/js/main.js" defer></script>

@@ -1,32 +1,20 @@
-# RHL-10 (RUN-145): redesign of the whole landing page
+# RHL-11 / RUN-151: departure-board redesign (notes for the next run)
 
 ## Done
-- Rebuilt both pages with Tailwind v4 (standalone CLI, binary kept in /tmp), palette as `@theme` tokens, IBM Plex Sans + IBM Plex Sans Arabic self-hosted.
-- Pages are now generated: `content/demo.json` (all copy, demo) + `tools/render-pages.mjs` -> `index.html`, `ar/index.html`. Plan said a `tools/templates/page.html`; the markup is in the renderer instead (simpler, no template slots).
-- Sections: navbar + sheet menu (outside `<header>`), split hero with product mock, trust strip, 4 steps, 6 features + photo row, Lead chat + pipeline, Gulf photo split, 3 plans (Team highlighted), FAQ `<details>`, CTA band, 4-column footer with photo credits.
-- Kept: section ids/markers, `data-cta` + `CTA_HREF` (still `'#'`), toggle, `i18n.js`, `<head>` meta (RHL-9 untouched; no workflow/sitemap changes).
+- New identity "Departure Board": enamel #12263F, lamp amber #FFB43A, paper #F5F7F9, chalk ink, status green/red. Fonts Barlow Semi Condensed + Barlow Condensed (Latin), IBM Plex Sans Arabic. Plan and review against defaults: docs/design-plan.md. docs/directions.md and docs/SRS.md follow.
+- Hero = run board with flipping split-flap plates (CSS + small JS in main.js, static under reduced motion and without JS). Arabic flips whole words (letters join).
+- Photos and credits removed; scenes are inline SVG (Lead chat, pull request with diff and checks, bilingual run board). Eyebrows, arrows, six identical cards removed. Sections: split hero, numbered gate route (How), split + plain list (Features), dark band (Lead), board rows (Gulf), ticket plans, FAQ, enamel CTA.
+- Checks: 3 critique rounds (docs/critique-rounds.md), Lighthouse 99-100 / 100 / 100 / 90, axe 0 violations, html-validate clean.
 
 ## Decisions
-- No template was downloaded; patterns follow shadcn/ui blocks and HyperUI (both MIT), credited in README as inspiration, no code copied. Say so honestly in reviews.
-- Desktop nav starts at `lg` (5 links + toggle + button do not fit at 768 in Arabic).
-- The mock is not forced `dir="ltr"` (so Arabic copy mirrors); only the code diff is.
-- Unsplash photographer names could not be fetched (bot block): credits say [PLACEHOLDER] photographer, listed in needs.json.
+- "Keep the palette" from RHL-10 was overridden by the story (AC 2 asks for a different palette).
+- Lead pipeline mock and HTML chat were dropped; the hero board covers the statuses and the chat is a drawn scene.
+- Board scene is bilingual and the same on both pages; chat and PR scenes follow the page language.
+- Lighthouse SEO is 90 because meta description belongs to RHL-9; not added here.
 
-## Failed / worked around
-- `@axe-core/cli`: chromedriver 152 vs Chromium 156 mismatch; used axe-core 4.10 injected through CDP instead (0 violations).
-- Sheet first rendered inside the header (backdrop-blur creates a containing block for fixed children); fixed by removing the blur and moving the sheet out of `<header>`.
-- Arabic 320px overflow: header too wide, then `<pre>` widening a grid; fixed.
+## Left for a person (needs.json)
+- Native Arabic review, real CTA address (`CTA_HREF`), real prices and claims.
 
-## Left
-- Real CTA address, prices, claims, privacy/terms pages, photographer names, native Arabic review (see needs.json).
-- Lighthouse SEO is 91 (meta description etc. belong to RHL-9).
-## Review round fixes
-- Step numbers were slate-400 (2.56:1): now slate-600. Font preload removed (Chrome called it unused). Inline data-URI favicon added.
-- `.releasehub-context/` is in .git/info/exclude, so screenshots are untracked unless force-added; they are PNG: en-390, en-1440, ar-390, ar-1440.
-## Review round 2 fix
-- Screenshots/PR were not on the branch: `.releasehub-context/` was in .git/info/exclude and the play-test wipes untracked files. Now the exclude line is removed, files are `git add -f`, and tracked copies live in `docs/screenshots/` and `docs/critique-rounds.md`.
-- Never `pkill -f` a pattern that appears in your own command; use `fuser -k 5173/tcp`.
-## Review round 3 fix
-- The four PNGs were only tracked under docs/screenshots/. Added a `.gitignore` whose `!.releasehub-context/` overrides the local `.git/info/exclude` so `.releasehub-context/screenshots/*.png` are tracked too (preview/, graph.json, playtest.json stay ignored). The play-test deletes untracked files in that folder, so they must be committed.
-## Review round 4
-- Top-level PNGs in `.releasehub-context/screenshots/` still did not reach the branch (the runner seems to clear that folder's top level; page-check jpegs are its own). Added copies in `.releasehub-context/screenshots/final/` (subfolder) plus `docs/screenshots/`. If this fails again, the runner strips the folder: accept docs/screenshots as the evidence and say so in the PR.
+## Pitfalls hit
+- Arabic times need `<bdi dir="ltr">`; SVG scenes need `direction: ltr` in CSS; font preloads fixed CLS.
+- The runner can wipe .releasehub-context/screenshots: tracked copies are in docs/screenshots/.

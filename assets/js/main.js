@@ -45,6 +45,35 @@
     var ctas = document.querySelectorAll('[data-cta]');
     for (i = 0; i < ctas.length; i++) ctas[i].setAttribute('href', CTA_HREF);
 
+    // Hero board: every plate flips once on load, like a split-flap display. The final
+    // text is already in the HTML (no JS, crawlers, reduced motion see it as is); here each
+    // plate first shows another character, then swaps it halfway through its flip.
+    var boards = document.querySelectorAll('[data-flip]');
+    if (boards.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var pools = ['ABCDEFGHJKLMNOPRSTUVWXYZ', '0123456789', '٠١٢٣٤٥٦٧٨٩'];
+      Array.prototype.forEach.call(boards, function (board) {
+        var rows = board.querySelectorAll('.board-row');
+        Array.prototype.forEach.call(rows, function (row, r) {
+          var plates = row.querySelectorAll('.ch');
+          Array.prototype.forEach.call(plates, function (el, k) {
+            var final = el.textContent;
+            var from = el.getAttribute('data-from');
+            if (!from) {
+              var pool = pools[/[0-9]/.test(final) ? 1 : /[٠-٩]/.test(final) ? 2 : 0];
+              from = pool.charAt(Math.floor(Math.random() * pool.length));
+            }
+            el.textContent = from;
+            var delay = 250 + r * 160 + k * 45;
+            setTimeout(function () {
+              el.classList.add('is-flip');
+              setTimeout(function () { el.textContent = final; }, 210);
+              setTimeout(function () { el.classList.remove('is-flip'); }, 440);
+            }, delay);
+          });
+        });
+      });
+    }
+
     // Sheet menu on phones: tap, Enter/Space, Escape, backdrop; focus stays inside.
     var btn = document.querySelector('[data-menu-button]');
     var sheet = document.getElementById('sheet');

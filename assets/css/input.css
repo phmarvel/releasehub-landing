@@ -1,124 +1,153 @@
 /* ReleaseHub landing: Tailwind v4 input. Built with the standalone CLI:
    tailwindcss -i assets/css/input.css -o assets/css/styles.css --minify
-   Only styles.css (output) and this file are committed. Never the in-browser script. */
+   Only styles.css (output) and this file are committed. Never the in-browser script.
+   Look: "Departure Board" (docs/design-plan.md). */
 @import "tailwindcss" source(none);
 @source "../../index.html";
 @source "../../ar/index.html";
 
-/* Fonts: self-hosted IBM Plex Sans (Latin) and IBM Plex Sans Arabic, font-display swap. */
-@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
-@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
-@font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/ibm-plex-sans-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+/* Fonts, self-hosted, font-display swap: Barlow Semi Condensed (text and headings), Barlow Condensed
+   (board plates), IBM Plex Sans Arabic (all Arabic text, also the board plates in Arabic). */
+@font-face { font-family: "Barlow Semi Condensed"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/barlow-semi-condensed-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Barlow Semi Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/barlow-semi-condensed-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Barlow Semi Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/barlow-semi-condensed-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 @font-face { font-family: "IBM Plex Sans Arabic"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2") format("woff2"); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC; }
 @font-face { font-family: "IBM Plex Sans Arabic"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2"); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC; }
 @font-face { font-family: "IBM Plex Sans Arabic"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2") format("woff2"); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC; }
 
-/* Theme: the "Clear Release" palette (docs/directions.md) plus tints. Spacing, type and
-   radius keep Tailwind's default scales. No other colours exist in the build. */
+/* Theme: enamel board, lit amber, boarding-pass paper, status colours. @theme resets all
+   default colours, so only these tokens exist. Radius: md controls, xl frames and tickets,
+   sm plates. Shadow: shadow-xl on the hero board and the sheet only. */
 @theme {
   --color-*: initial;
   --color-white: #ffffff;
-  --color-surface: #f5f7fa;
-  --color-ink: #0f172a;
-  --color-accent-50: #eff6ff;
-  --color-accent-100: #dbeafe;
-  --color-accent-400: #60a5fa;
-  --color-accent-600: #2563eb;
-  --color-accent-700: #1d4ed8;
-  --color-accent-800: #1e40af;
-  --color-success-50: #f0fdf4;
-  --color-success: #16a34a;
-  --color-success-700: #15803d;
-  --color-amber-100: #fef3c7;
-  --color-amber-900: #78350f;
-  --color-emerald-300: #6ee7b7;
-  --color-red-300: #fca5a5;
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-arabic: "IBM Plex Sans Arabic", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-paper: #f5f7f9;
+  --color-ink: #1c2b3d;
+  --color-muted: #4a5b70;
+  --color-line: #cfd8e3;
+  --color-enamel: #12263f;
+  --color-enamel-deep: #0b1829;
+  --color-enamel-raised: #24476f;
+  --color-enamel-50: #eef3f8;
+  --color-enamel-text: #b9c8da;
+  --color-amber: #ffb43a;
+  --color-amber-hover: #ffc766;
+  --color-amber-press: #f2a01c;
+  --color-amber-soft: #fff0cf;
+  --color-amber-deep: #7a4400;
+  --color-go: #1f7a4f;
+  --color-go-soft: #e0f3e8;
+  --color-go-lit: #5fd08f;
+  --color-hold: #b83a2a;
+  --color-hold-lit: #ff9d8f;
+  --font-sans: "Barlow Semi Condensed", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Barlow Semi Condensed", ui-sans-serif, system-ui, sans-serif;
+  --font-board: "Barlow Condensed", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   html { scroll-padding-top: 5rem; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   body { @apply bg-white font-sans text-base text-ink antialiased; }
-  :focus-visible { outline: 2px solid var(--color-accent-600); outline-offset: 2px; }
-  .on-dark :focus-visible { outline-color: var(--color-white); }
-  .sheet-panel :focus-visible, .sheet-panel:focus-visible { outline-color: var(--color-accent-600); }
+  :focus-visible { outline: 2px solid var(--color-enamel-raised); outline-offset: 2px; }
+  .on-dark :focus-visible { outline-color: var(--color-amber); }
+  .sheet-panel :focus-visible, .sheet-panel:focus-visible { outline-color: var(--color-enamel-raised); }
 }
 
 @layer components {
   .wrap { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
   .section { @apply py-16 md:py-24; }
-  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:start-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:text-ink focus:shadow-lg; }
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:start-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:text-ink focus:shadow-xl; }
 
-  .eyebrow { @apply mb-3 text-sm font-semibold text-accent-700; }
-  .display { @apply text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl; }
+  .display { @apply text-5xl font-bold leading-[1.05] tracking-tight text-ink sm:text-6xl; }
   .h2 { @apply text-3xl font-bold tracking-tight text-ink sm:text-4xl; }
   .h3 { @apply text-xl font-semibold text-ink; }
-  .lede { @apply mt-4 text-lg text-slate-700; }
-  .link { @apply inline-flex min-h-11 items-center font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800; }
+  .lede { @apply mt-4 text-xl text-muted; }
+  .link { @apply inline-flex min-h-11 items-center font-semibold text-enamel-raised underline underline-offset-4 hover:text-enamel; }
+  .note { @apply rounded-md border border-dashed border-muted bg-amber-soft p-3 text-sm text-amber-deep; }
 
-  .btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 text-base font-semibold transition-colors duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none; }
+  /* Buttons (shadcn anatomy): default = lit amber, outline, outline on dark. */
+  .btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-5 text-base font-semibold transition-colors duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none; }
   .btn-lg { @apply min-h-12 px-6 text-lg; }
-  .btn-primary { @apply bg-accent-600 text-white hover:bg-accent-700 active:bg-accent-800; }
-  .btn-outline { @apply bg-white text-ink ring-1 ring-inset ring-slate-300 hover:bg-slate-50 active:bg-slate-100; }
-  .btn-light { @apply bg-white text-ink hover:bg-slate-100 active:bg-slate-200; }
-  .btn-ghost-dark { @apply text-white ring-1 ring-inset ring-white/60 hover:bg-white/10 active:bg-white/20; }
-  .icon-btn { @apply inline-flex size-11 items-center justify-center rounded-lg text-ink ring-1 ring-inset ring-slate-300 transition-colors duration-150 hover:bg-slate-100 active:bg-slate-200 motion-reduce:transition-none; }
+  .btn-primary { @apply bg-amber text-enamel hover:bg-amber-hover active:bg-amber-press; }
+  .btn-outline { @apply bg-white text-ink ring-1 ring-inset ring-muted hover:bg-enamel-50 active:bg-line; }
+  .btn-outline-dark { @apply text-white ring-1 ring-inset ring-enamel-text hover:bg-enamel-raised active:bg-enamel-deep; }
+  .icon-btn { @apply inline-flex size-11 items-center justify-center rounded-md text-ink ring-1 ring-inset ring-muted transition-colors duration-150 hover:bg-enamel-50 active:bg-line motion-reduce:transition-none; }
 
-  .brand { @apply inline-flex min-h-11 items-center gap-2 text-lg font-bold text-ink sm:text-xl; }
-  .nav-link { @apply inline-flex min-h-11 min-w-11 items-center rounded-lg px-3 font-medium text-slate-700 transition-colors duration-150 hover:bg-slate-100 hover:text-ink motion-reduce:transition-none; }
-  .lang-switch { @apply inline-flex min-h-11 min-w-11 items-center rounded-lg px-2 font-semibold text-slate-700 sm:px-3 transition-colors duration-150 hover:bg-slate-100 motion-reduce:transition-none; }
-  .lang-switch-dark { @apply px-4 text-white ring-1 ring-inset ring-white/60 hover:bg-white/10; }
+  .brand { @apply inline-flex min-h-11 items-center gap-2 text-xl font-bold text-ink sm:text-2xl; }
+  .nav-link { @apply inline-flex min-h-11 min-w-11 items-center rounded-md px-3 text-lg font-semibold text-muted transition-colors duration-150 hover:bg-enamel-50 hover:text-ink motion-reduce:transition-none; }
+  .lang-switch { @apply inline-flex min-h-11 min-w-11 items-center rounded-md px-2 font-semibold text-ink transition-colors duration-150 hover:bg-enamel-50 sm:px-3 motion-reduce:transition-none; }
+  .lang-switch-dark { @apply px-4 text-white ring-1 ring-inset ring-enamel-text hover:bg-enamel-raised; }
 
   .sheet { @apply fixed inset-0 z-50; }
-  .sheet-backdrop { @apply absolute inset-0 bg-ink/50; }
+  .sheet-backdrop { @apply absolute inset-0 bg-enamel-deep/60; }
   .sheet-panel { @apply absolute inset-y-0 end-0 flex w-80 max-w-[85vw] flex-col overflow-y-auto bg-white p-6 shadow-xl; }
-  .sheet-link { @apply flex min-h-12 items-center border-b border-slate-200 text-lg font-medium text-ink hover:text-accent-700; }
+  .sheet-link { @apply flex min-h-12 items-center border-b border-line text-xl font-semibold text-ink hover:text-enamel-raised; }
 
-  .card { @apply rounded-xl border border-slate-200 bg-white shadow-sm; }
-  .mock { @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl; }
-  .photo { @apply aspect-[3/2] w-full rounded-2xl border border-slate-200 object-cover shadow-xl; }
-  .icon-box { @apply inline-flex size-12 items-center justify-center rounded-xl bg-accent-50 text-accent-700; }
-  .step-num { @apply text-2xl font-bold text-slate-600; }
+  .badge { @apply inline-flex items-center rounded-sm px-2.5 py-0.5 text-sm font-semibold; }
+  .badge-demo, .badge-ph { @apply bg-amber-soft text-amber-deep; }
+  .badge-accent { @apply bg-amber text-enamel; }
 
-  .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-sm font-semibold; }
-  .badge-demo, .badge-ph { @apply bg-amber-100 text-amber-900; }
-  .badge-neutral, .badge-wait { @apply bg-slate-100 text-slate-700; }
-  .badge-ok { @apply bg-success-50 text-success-700; }
-  .badge-info, .badge-work { @apply bg-accent-50 text-accent-800; }
-  .badge-accent { @apply bg-accent-600 text-white; }
-  .step-dot { @apply size-2.5 shrink-0 rounded-full; }
-  .step-ok { @apply bg-success; }
-  .step-info { @apply bg-accent-600; }
-  .step-work { @apply bg-accent-400; }
-  .step-wait { @apply bg-slate-400; }
+  /* Departure board (hero): enamel panel, split-flap plates. */
+  .board { @apply overflow-hidden rounded-xl bg-enamel text-white shadow-xl; }
+  .board-cols, .board-row { @apply grid grid-cols-[2.5rem_1fr] items-center gap-x-4 px-4 sm:grid-cols-[2.5rem_1fr_auto] sm:px-6; }
+  .board-cols { @apply hidden gap-y-0 py-2 text-sm text-enamel-text sm:grid; }
+  .board-row { @apply gap-y-2 border-t border-dashed border-enamel-raised py-4; }
+  .board-row .board-status { @apply col-start-2 sm:col-start-3; }
+  .gate-plate { @apply inline-flex; }
+  .ch { @apply relative inline-flex h-9 w-[1.25rem] items-center justify-center rounded-sm bg-enamel-deep font-board text-2xl font-semibold leading-none; backface-visibility: hidden; }
+  .gate-plate .ch { @apply w-10 text-amber; }
+  .ch::after { content: ""; @apply absolute inset-x-0 top-1/2 h-px bg-enamel; }
+  .ch-gap { @apply inline-block w-2; }
+  .ch-word { @apply w-auto px-3 text-xl; }
+  .st-planned { @apply text-enamel-text; }
+  .st-coding { @apply text-amber; }
+  .st-review { @apply text-white; }
+  .st-merged { @apply text-go-lit; }
+  .is-flip { animation: flap 420ms ease-in-out both; }
+  @keyframes flap {
+    0% { transform: perspective(240px) rotateX(0); }
+    49% { transform: perspective(240px) rotateX(-90deg); }
+    51% { transform: perspective(240px) rotateX(90deg); }
+    100% { transform: perspective(240px) rotateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .is-flip { animation: none; } }
 
-  .msg { @apply max-w-[90%] rounded-xl p-3 sm:max-w-[80%]; }
-  .msg-who { @apply mb-1 block text-sm font-semibold; }
-  .msg-user { @apply self-start border border-slate-200 bg-surface text-ink; }
-  .msg-lead { @apply self-end bg-accent-600 text-white; }
+  /* How it works: a real sequence, numbered gates joined by a dashed route. */
+  .gate-list { @apply grid list-none gap-0 p-0 lg:grid-cols-4 lg:gap-8; }
+  .gate { @apply relative flex gap-4 pb-8 lg:flex-col lg:pb-0; }
+  .gate-num { @apply relative inline-flex size-10 shrink-0 items-center justify-center rounded-sm bg-enamel font-board text-2xl font-semibold leading-none text-amber; }
+  .gate-num::after { content: ""; @apply absolute inset-x-0 top-1/2 h-px bg-enamel-raised; }
+  .gate:not(:last-child)::before { content: ""; @apply absolute top-12 bottom-1 border-s-2 border-dashed border-line; inset-inline-start: calc(1.25rem - 1px); }
+  @media (min-width: 1024px) {
+    .gate:not(:last-child)::before { @apply top-5 bottom-auto h-0 border-s-0 border-t-2; inset-inline-start: 3.25rem; inset-inline-end: -1.5rem; }
+  }
+  .feat-icon { @apply inline-flex size-10 shrink-0 items-center justify-center rounded-md bg-enamel-50 text-enamel-raised; }
+  .gulf-row { @apply flex gap-4 rounded-e-md border-s-4 border-amber bg-paper p-4; }
+  .scene { @apply block h-auto w-full rounded-xl; direction: ltr; }
 
-  .plan { @apply relative flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm lg:p-8; }
-  .plan-featured { @apply border-transparent shadow-lg ring-2 ring-accent-600; }
+  /* Ticket plans: head stub, dashed perforation with side notches, body. */
+  .ticket { @apply relative flex flex-col rounded-xl bg-white ring-1 ring-line; }
+  .ticket-head { @apply rounded-t-xl bg-enamel-50 p-6 text-muted; }
+  .ticket-featured { @apply ring-2 ring-enamel; }
+  .ticket-featured .ticket-head { @apply bg-enamel text-enamel-text; }
+  .ticket-perf { @apply relative h-6; }
+  .ticket-perf::before, .ticket-perf::after { content: ""; @apply absolute top-0 size-6 rounded-full bg-paper; }
+  .ticket-perf::before { inset-inline-start: -0.75rem; }
+  .ticket-perf::after { inset-inline-end: -0.75rem; }
+  .ticket-perf span { @apply absolute inset-x-6 top-1/2 border-t-2 border-dashed border-line; }
 
-  .faq { @apply rounded-xl border border-slate-200 bg-white; }
-  .faq summary { @apply flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-4 font-semibold text-ink hover:bg-slate-50; }
+  .faq { @apply rounded-xl bg-white ring-1 ring-line; }
+  .faq summary { @apply flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-4 text-lg font-semibold text-ink hover:bg-enamel-50; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq p { @apply px-4 pb-4 text-slate-700; }
-  .faq-chevron { @apply text-slate-600 transition-transform duration-150 motion-reduce:transition-none; }
+  .faq p { @apply px-4 pb-4 text-muted; }
+  .faq-chevron { @apply text-muted transition-transform duration-150 motion-reduce:transition-none; }
   .faq[open] .faq-chevron { @apply rotate-180; }
 
-  .footer-h { @apply text-sm font-semibold text-white; }
-  .footer-link { @apply inline-flex min-h-11 min-w-11 items-center text-slate-300 underline-offset-4 hover:text-white hover:underline; }
+  .footer-h { @apply text-base font-semibold text-white; }
+  .footer-link { @apply inline-flex min-h-11 min-w-11 items-center text-enamel-text underline-offset-4 hover:text-white hover:underline; }
 }
 
 /* Arabic: IBM Plex Sans Arabic, text about 10% larger (root 17.6px, so rem scales follow),
@@ -129,7 +158,6 @@ html:lang(ar) body, :lang(ar) .font-sans { font-family: var(--font-arabic); }
 html:lang(ar) body { line-height: 1.7; }
 :lang(ar) :is(p, li, a, span, summary, button, strong, small, figcaption, data) { line-height: 1.7; }
 :lang(ar) :is(h1, h2, h3) { line-height: 1.6; }
-/* Arabic-Indic digits for list markers, like the prices. */
-:lang(ar) ol { list-style-type: arabic-indic; }
+:lang(ar) .ch { line-height: 1; }
 /* Latin-only parts inside the Arabic page keep Latin metrics. */
 :lang(ar) [dir="ltr"], :lang(ar) bdi { letter-spacing: 0 !important; }
