@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:5173",
+  "start": "python3 -m http.server 5173",
+  "cwd": ".",
+  "ready": "http://localhost:5173/",
+  "readOnly": true
+}

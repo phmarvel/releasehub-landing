@@ -1,4 +1,4 @@
-/* Page behaviour: language redirect, toggle, focus, menu button. */
+/* Page behaviour: language redirect, toggle, focus, sheet menu. */
 (function () {
   var doc = document.documentElement;
   var L = window.RH_LANG;
@@ -35,20 +35,52 @@
       });
     }
 
-    // Keep focus on the toggle after switching language.
-    if (L.takeFocusMark() && toggles.length) toggles[0].focus();
+    // Keep focus on the first visible toggle after switching language.
+    if (L.takeFocusMark()) {
+      for (i = 0; i < toggles.length; i++) {
+        if (toggles[i].offsetParent !== null) { toggles[i].focus(); break; }
+      }
+    }
 
     var ctas = document.querySelectorAll('[data-cta]');
     for (i = 0; i < ctas.length; i++) ctas[i].setAttribute('href', CTA_HREF);
 
-    // Menu button on phones.
+    // Sheet menu on phones: tap, Enter/Space, Escape, backdrop; focus stays inside.
     var btn = document.querySelector('[data-menu-button]');
-    var nav = document.getElementById('site-nav');
-    if (btn && nav) {
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-        nav.classList.toggle('is-open', !open);
+    var sheet = document.getElementById('sheet');
+    if (btn && sheet) {
+      var panel = sheet.querySelector('.sheet-panel');
+      var focusables = function () {
+        return panel.querySelectorAll('a[href], button:not([disabled])');
+      };
+      var setOpen = function (open) {
+        sheet.hidden = !open;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (open) focusables()[0].focus(); else btn.focus();
+      };
+      btn.addEventListener('click', function () { setOpen(sheet.hidden); });
+      sheet.addEventListener('click', function (e) {
+        if (e.target.closest('[data-sheet-close]')) {
+          var link = e.target.closest('a');
+          sheet.hidden = true;
+          btn.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+          if (!link) btn.focus();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (sheet.hidden) return;
+        if (e.key === 'Escape') { setOpen(false); return; }
+        if (e.key !== 'Tab') return;
+        var f = focusables();
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
+      // Back to a wide screen: the sheet has no place any more.
+      window.matchMedia('(min-width: 1024px)').addEventListener('change', function (m) {
+        if (m.matches && !sheet.hidden) { sheet.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
       });
     }
   });

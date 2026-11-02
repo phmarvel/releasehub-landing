@@ -22,10 +22,13 @@ Confident and plain. Short sentences, concrete verbs ("Plan, code, open the PR")
 | Success | #16A34A | Check marks and "PR opened" badges (icons only, never text on white) |
 
 ### Typography
-Inter for English (headings 600 to 700, body 400). IBM Plex Sans Arabic for Arabic, at the same weights and about 10% larger body size and 1.7 line height. Both are self-hosted variable fonts, so the static site needs no third-party request.
+IBM Plex Sans for English (headings 600 to 700, body 400, RHL-10 decision). IBM Plex Sans Arabic for Arabic, at the same weights and about 10% larger body size and 1.7 line height. Both are self-hosted variable fonts, so the static site needs no third-party request.
 
 ### Layout
-Centred hero with a large product mockup under the headline. A 12-column grid, a maximum content width of 1120 px, and generous vertical rhythm. Features are alternating text-and-image rows. The Lead chat is shown as a framed chat window. Pricing is a single card because the price is per user. Single sticky header with the language switch.
+Centred hero with a large product mockup under the headline. A container of 1280 px (max-w-7xl) with 16 to 32 px gutters, and section padding of 64 px on phones and 96 px on desktop (RHL-10). Features are alternating text-and-image rows. The Lead chat is shown as a framed chat window. Pricing is a single card because the price is per user. Single sticky header with the language switch.
+
+### Kit (RHL-10)
+Tailwind v4 compiled with the standalone CLI (`assets/css/input.css` to `assets/css/styles.css`), shadcn/Tailwind UI conventions: one radius family (lg controls, xl cards, 2xl photos and product visuals), borders before shadows, Lucide icons (one set, inline SVG), 2 px focus ring with offset, 44 px targets. The colour tokens are exactly the palette above plus tints. Phone menu is a sheet from the inline end. Layouts: split hero with a product visual, trust strip, 4-step cards, 6-card feature grid plus a photo row, chat and pipeline panels, Gulf photo split, three pricing cards with a highlighted plan, FAQ accordion, dark CTA band with a photo, four-column footer with photo credits. Copy lives in `content/demo.json` and the pages are generated from it.
 
 ### Sections
 1. Header and language switch: brand, anchor links, English/Arabic toggle, main call to action.
