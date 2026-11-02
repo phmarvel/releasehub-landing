@@ -10,6 +10,10 @@
   // links stay as written ("ar/", "../").
   var onDisk = window.location.protocol === 'file:';
 
+  // RHL-8: the one place for the call-to-action target (open item: a real
+  // mailto: or booking address). Every [data-cta] link gets this href.
+  var CTA_HREF = '#';
+
   var isEnglish = doc.getAttribute('lang') === 'en';
 
   // First visit to the English page: go to Arabic when the stored choice or
@@ -33,6 +37,9 @@
 
     // Keep focus on the toggle after switching language.
     if (L.takeFocusMark() && toggles.length) toggles[0].focus();
+
+    var ctas = document.querySelectorAll('[data-cta]');
+    for (i = 0; i < ctas.length; i++) ctas[i].setAttribute('href', CTA_HREF);
 
     // Menu button on phones.
     var btn = document.querySelector('[data-menu-button]');
